@@ -17,23 +17,23 @@ class TripFactory {
     console.log("is in sea: ", GeoUtils.isInSea(endingPos));
 
     return new Trip({
-      startingPos: req.startPos,
+      startingPos: req.startingPos,
       endingPos: endingPos.toDto(),
     });
   }
 
   _getRandomPointInAllowedDistance(req: CreatingTripRequest): GeoPoint {
-    const startPos = new GeoPoint(req.startPos);
-    const bounds = GeoUtils.getBoundsOfDistance(startPos, req.distanceMax);
+    const startingPos = new GeoPoint(req.startingPos);
+    const bounds = GeoUtils.getBoundsOfDistance(startingPos, req.distanceMax);
     let endingPos = GeoUtils.getRandomPointBetween(bounds[0], bounds[1]);
-    let distanceTrip = GeoUtils.getDistanceBetween(startPos, endingPos);
+    let distanceTrip = GeoUtils.getDistanceBetween(startingPos, endingPos);
 
     while (
       distanceTrip > req.distanceMax ||
       (req.distanceMin && distanceTrip < req.distanceMin)
     ) {
       endingPos = GeoUtils.getRandomPointBetween(bounds[0], bounds[1]);
-      distanceTrip = GeoUtils.getDistanceBetween(startPos, endingPos);
+      distanceTrip = GeoUtils.getDistanceBetween(startingPos, endingPos);
     }
 
     console.log("final distance: ", distanceTrip);

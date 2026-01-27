@@ -12,21 +12,21 @@ tripRouter.get("/:id", async (req: Request, res: Response) => {
   } catch (err) {
     res
       .status(400)
-      .send(`error parsing request params: ${err ?? "no error message"}`);
+      .send(`Error parsing request params: ${err ?? "no error message"}`);
   }
 });
 
 tripRouter.post("/", async (req: Request, res: Response) => {
   try {
     if (!req.body) {
-      res.status(400).send("miss paramters: request must contain a body");
+      res.status(400).send("Miss paramters: Request must contain a body");
       return;
     }
 
     if (!isCreatingTripRequest(req.body)) {
       res
         .status(400)
-        .send("wrong parameters: body needs to be a creating trip request");
+        .send("Wrong parameters: Body needs to be a creating trip request");
       return;
     }
     const tripRequest: CreatingTripRequest = req.body;
@@ -34,12 +34,12 @@ tripRouter.post("/", async (req: Request, res: Response) => {
       res.send((await tripFactory.create(tripRequest)).toDto());
     } catch (err) {
       console.error(err);
-      res.status(500).send(`error creating trip: ${err}`);
+      res.status(500).send(`Error creating trip: ${err}`);
     }
   } catch (err) {
     res
       .status(400)
-      .send(`error parsing request params: ${err ?? "no error message"}`);
+      .send(`Error parsing request params: ${err ?? "no error message"}`);
   }
 });
 

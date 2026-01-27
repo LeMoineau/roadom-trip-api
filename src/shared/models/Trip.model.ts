@@ -12,11 +12,13 @@ export class Trip {
   constructor({
     startingPos,
     endingPos,
+    id = uuidv4(),
   }: {
     startingPos: GeoPointDto;
     endingPos: GeoPointDto;
+    id?: UUID;
   }) {
-    this.id = uuidv4();
+    this.id = id;
     this.startingPos = new GeoPoint(startingPos);
     this.endingPos = new GeoPoint(endingPos);
   }
