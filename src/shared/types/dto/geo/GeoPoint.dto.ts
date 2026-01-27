@@ -1,9 +1,9 @@
-export interface GeoPoint {
+export interface GeoPointDto {
   lat: number;
   lon: number;
 }
 
-export function isGeoPoint(pt: any): pt is GeoPoint {
+export function isGeoPointDto(pt: any): pt is GeoPointDto {
   return (
     !!pt &&
     pt.lat &&

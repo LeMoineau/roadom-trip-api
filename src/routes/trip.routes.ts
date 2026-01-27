@@ -1,9 +1,9 @@
 import { Request, Response, Router } from "express";
+import tripFactory from "../factories/trip.factory";
 import {
   CreatingTripRequest,
   isCreatingTripRequest,
-} from "../../../shared/src/types/trip/CreatingTripRequest";
-import tripFactory from "../factories/trip.factory";
+} from "../shared/types/dto/trip/CreatingTripRequest";
 
 const tripRouter = Router();
 
@@ -31,7 +31,7 @@ tripRouter.post("/", async (req: Request, res: Response) => {
     }
     const tripRequest: CreatingTripRequest = req.body;
     try {
-      res.send(await tripFactory.create(tripRequest));
+      res.send((await tripFactory.create(tripRequest)).toDto());
     } catch (err) {
       console.error(err);
       res.status(500).send(`error creating trip: ${err}`);
