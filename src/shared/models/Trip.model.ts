@@ -4,6 +4,8 @@ import { UUID } from "../types/primitives/Identifier";
 import { GeoPoint } from "./GeoPoint.model";
 import { v4 as uuidv4 } from "uuid";
 
+let TRIP_ID_INCREMENTOR = 1;
+
 export class Trip {
   id: UUID;
   startingPos: GeoPoint;
@@ -12,7 +14,7 @@ export class Trip {
   constructor({
     startingPos,
     endingPos,
-    id = uuidv4(),
+    id = `${TRIP_ID_INCREMENTOR++}`,
   }: {
     startingPos: GeoPointDto;
     endingPos: GeoPointDto;

@@ -3,7 +3,16 @@ import { GeoPoint } from "../shared/models/GeoPoint.model";
 import { CreatingTripRequest } from "../shared/types/dto/trip/CreatingTripRequest";
 import { Trip } from "../shared/models/Trip.model";
 
+const DEFAULT_STARTING_POS_LABEL = "Point de départ";
+
 class TripFactory {
+  /**
+   * Create a trip from a CreatingTripRequest
+   *
+   * By default, a startingPos label will be set to {DEFAULT_STARTING_POS_LABEL}
+   * @param req
+   * @returns
+   */
   async create(req: CreatingTripRequest): Promise<Trip> {
     console.log("trip request: ", req);
 
@@ -17,7 +26,7 @@ class TripFactory {
     console.log("is in sea: ", GeoUtils.isInSea(endingPos));
 
     return new Trip({
-      startingPos: req.startingPos,
+      startingPos: { label: DEFAULT_STARTING_POS_LABEL, ...req.startingPos },
       endingPos: endingPos.toDto(),
     });
   }
