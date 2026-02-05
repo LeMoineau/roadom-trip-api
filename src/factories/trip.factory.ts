@@ -28,6 +28,7 @@ class TripFactory {
     return new Trip({
       startingPos: { label: DEFAULT_STARTING_POS_LABEL, ...req.startingPos },
       endingPos: endingPos.toDto(),
+      createdAt: new Date(),
     });
   }
 
