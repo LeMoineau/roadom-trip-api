@@ -2,11 +2,11 @@ import {
   HGBDHintDirection,
   HGBDHintDto,
   HGBDHintMethodGenerationDirection,
-} from "../../types/dto/hints/HGBDHint.dto";
-import { GeoUtils } from "../../utils/geo.utils";
-import { MathUtils } from "../../utils/math.utils";
-import { GeoPoint } from "../GeoPoint.model";
-import { Hint } from "./Hint.model";
+} from "../../../../shared/src/types/dto/hints/HGBDHint.dto";
+import { GeoUtils } from "../../../../shared/src/utils/geo.utils";
+import { MathUtils } from "../../../../shared/src/utils/math.utils";
+import { GeoPoint } from "../../../../shared/src/models/GeoPoint.model";
+import { Hint } from "../../../../shared/src/models/hints/Hint.model";
 
 /**
  * Points for France
@@ -16,6 +16,11 @@ const GAUCHE_PT = new GeoPoint({ lat: 48.22401, lon: -3.915764 });
 const BAS_PT = new GeoPoint({ lat: 42.915282, lon: 2.783285 });
 const DROITE_PT = new GeoPoint({ lat: 46.988664, lon: 7.033357 });
 
+/**
+ * Hint which give direction in "haut", "gauche", "bas", "droite" according to :
+ * - direction of ending point from starting point
+ * - position of ending point in France
+ */
 export class HGBDHint extends Hint {
   direction: HGBDHintDirection;
   methodGenerationDirection: HGBDHintMethodGenerationDirection;
@@ -75,7 +80,7 @@ export class HGBDHint extends Hint {
 
   toDto(): HGBDHintDto {
     return {
-      type: "haut-gauche-bas-droite",
+      type: "haut-gauche-bas-droite-hint",
       direction: this.direction,
       methodGenerationDirection: this.methodGenerationDirection,
     };

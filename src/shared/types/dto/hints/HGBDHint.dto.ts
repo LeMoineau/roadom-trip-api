@@ -5,7 +5,7 @@ export type HGBDHintMethodGenerationDirection =
   | "from-ending-pos";
 
 export interface HGBDHintDto {
-  type: "haut-gauche-bas-droite";
+  type: "haut-gauche-bas-droite-hint";
   direction: HGBDHintDirection;
   methodGenerationDirection: HGBDHintMethodGenerationDirection;
 }

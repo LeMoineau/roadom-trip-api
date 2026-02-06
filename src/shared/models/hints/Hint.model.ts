@@ -5,3 +5,7 @@ export abstract class Hint {
 
   abstract toDto(): HintDto;
 }
+
+export interface InitilizableHint {
+  init(): Promise<void>;
+}

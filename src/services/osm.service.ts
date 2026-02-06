@@ -35,7 +35,7 @@ class OSMService {
     lon: number;
     zoom?: number;
     format?: string;
-  }): Promise<OSMResponse> {
+  }): Promise<OSMResponse | undefined> {
     return this.instance
       .get("/reverse", {
         params: {
@@ -45,6 +45,11 @@ class OSMService {
         },
       })
       .then((res) => {
+        if (!!!res.data || !!res.data.error) {
+          // if unable to geocode, might be in sea
+          console.error(res.data);
+          return;
+        }
         return res.data as OSMResponse;
       });
   }
@@ -61,7 +66,7 @@ class OSMService {
   }: {
     q: string;
     format?: string;
-  }): Promise<OSMResponse> {
+  }): Promise<OSMResponse | undefined> {
     return this.instance
       .get("/search", {
         params: {
@@ -70,6 +75,10 @@ class OSMService {
         },
       })
       .then((res) => {
+        if (!!!res.data || !!res.data.error) {
+          console.error(res.data);
+          return;
+        }
         return res.data as OSMResponse;
       });
   }
