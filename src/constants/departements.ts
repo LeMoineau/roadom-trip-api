@@ -1,5 +1,13 @@
 import { Departement } from "../shared/types/geo/Departement";
 
+/**
+ * List of all french departements.
+ *
+ * Contain :
+ * - code : "01"
+ * - name : "FR-01"
+ * - libelle : "Ain"
+ */
 export const departements: Departement[] = [
   {
     code: "01",

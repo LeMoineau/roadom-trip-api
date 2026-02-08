@@ -1,4 +1,5 @@
-import departementsController from "../../controllers/departements.controller";
+import { departements } from "../../constants/departements";
+import tourismService from "../../services/tourism.service";
 import { Hint } from "../../shared/models/hints/Hint.model";
 import {
   TourismHintDto,
@@ -28,11 +29,27 @@ export class TourismHint extends Hint {
         : this._generateMessageFromMostPopularSeason(endingDepartementCode);
   }
 
-  _generateMessageFromDepRank(departementCode: DepartementCode): string {}
+  /**
+   * Generate a message from the popularity by year of the ending departement
+   * @param departementCode ending departement
+   * @returns hint message
+   */
+  _generateMessageFromDepRank(departementCode: DepartementCode): string {
+    const rank = tourismService.getPopularityRankByYearOf(departementCode);
+    return `Votre département d'arrivée est le ${rank}e plus populaire de France (sur ${departements.length}) !`;
+  }
 
+  /**
+   * Generate a message from most visited season of the ending departement
+   * @param departementCode ending departement
+   * @returns hint message
+   */
   _generateMessageFromMostPopularSeason(
     departementCode: DepartementCode,
-  ): string {}
+  ): string {
+    const season = tourismService.getMostAttractiveSeasonOf(departementCode);
+    return `C'est en ${season} que votre département d'arrivée est le plus visité !`;
+  }
 
   toDto(): TourismHintDto {
     return {

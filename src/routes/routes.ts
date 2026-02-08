@@ -4,6 +4,7 @@ import osmService from "../services/osm.service";
 import { GeoPoint } from "../shared/models/GeoPoint.model";
 import { HGBDHint } from "../models/hints/HGBDHint.model";
 import { ShoesHint } from "../models/hints/ShoesHint.model";
+import { TourismHint } from "../models/hints/TourismHint.model";
 
 const router = Router();
 
@@ -39,11 +40,16 @@ router.get("/test", async (_: Request, res: Response) => {
   //     endingPos: new GeoPoint({ lat: 44.361407, lon: 0.644805 }),
   //   }).toDto(),
   // );
-  const hint = new ShoesHint({
-    endingPos: new GeoPoint({ lat: 45.101288, lon: 5.844129 }),
-  });
+  // const hint = new ShoesHint({
+  //   endingPos: new GeoPoint({ lat: 45.101288, lon: 5.844129 }),
+  // });
 
-  await hint.init();
+  // await hint.init();
+
+  const hint = new TourismHint({
+    endingDepartementCode: "69D",
+    methodGenerationMessage: "most-popular-season",
+  });
   res.send(hint.toDto());
 });
 

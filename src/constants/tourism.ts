@@ -1,4 +1,4 @@
-[
+export const departementsTourism = [
   {
     departementCode: "01",
     placeOccupancyRate: 38.3,
@@ -402,7 +402,13 @@
     nbNuitees: 12253,
   },
   {
-    departementCode: "69",
+    departementCode: "69M",
+    placeOccupancyRate: 56.7,
+    timePeriod: "2024-01",
+    nbNuitees: 40714,
+  },
+  {
+    departementCode: "69D",
     placeOccupancyRate: 56.7,
     timePeriod: "2024-01",
     nbNuitees: 40714,
@@ -7255,7 +7261,7 @@
   },
   {
     departementCode: "976",
-    placeOccupancyRate: "",
+    placeOccupancyRate: 0,
     timePeriod: "2024-12",
     nbNuitees: 0,
   },
