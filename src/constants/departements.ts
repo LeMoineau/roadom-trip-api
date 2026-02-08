@@ -1,4 +1,6 @@
-export const departements = [
+import { Departement } from "../shared/types/geo/Departement";
+
+export const departements: Departement[] = [
   {
     code: "01",
     name: "FR-01",

@@ -1,5 +1,8 @@
 export interface Departement {
-  code: string;
-  name: string;
+  code: DepartementCode;
+  name: DepartementName;
   libelle: string;
 }
+
+export type DepartementCode = string;
+export type DepartementName = `FR-${string}`;

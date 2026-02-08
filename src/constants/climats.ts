@@ -1,6 +1,5 @@
 import { Climat } from "../shared/types/geo/Climat";
-
-type DepartementCode = string;
+import { DepartementCode } from "../shared/types/geo/Departement";
 
 export const climats: { climat: Climat; departements: DepartementCode[] }[] = [
   {
