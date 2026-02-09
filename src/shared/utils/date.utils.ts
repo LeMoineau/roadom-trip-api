@@ -1,5 +1,12 @@
+import { Season } from "../types/primitives/Date";
+
 export namespace DateUtils {
-  export function monthToSeason(month: number) {
+  /**
+   * Get the season of a month (january => hiver)
+   * @param month
+   * @returns
+   */
+  export function monthToSeason(month: number): Season {
     if (month > 12 || month < 1) {
       throw new Error(
         `error getting season of month ${month} (must be between 1 and 12)`,

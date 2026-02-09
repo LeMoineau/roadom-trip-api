@@ -5,6 +5,9 @@ import { GeoPoint } from "../shared/models/GeoPoint.model";
 import { HGBDHint } from "../models/hints/HGBDHint.model";
 import { ShoesHint } from "../models/hints/ShoesHint.model";
 import { TourismHint } from "../models/hints/TourismHint.model";
+import { FlagHint } from "../models/hints/FlagHint.model";
+import { BlasonHint } from "../models/hints/BlasonHint.model";
+import { departements } from "../constants/departements";
 
 const router = Router();
 
@@ -46,10 +49,15 @@ router.get("/test", async (_: Request, res: Response) => {
 
   // await hint.init();
 
-  const hint = new TourismHint({
-    endingDepartementCode: "69D",
-    methodGenerationMessage: "most-popular-season",
-  });
+  // const hint = new TourismHint({
+  //   endingDepartementCode: "69D",
+  //   methodGenerationMessage: "most-popular-season",
+  // });
+
+  // const hint = new FlagHint({ departementCode: "69D" });
+
+  const hint = new BlasonHint({ departementCode: "35" });
+
   res.send(hint.toDto());
 });
 

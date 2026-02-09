@@ -108,6 +108,16 @@ export const departementsBlasons = [
     departementLibelle: "Corse du Sud et Haute Corse",
   },
   {
+    blasonURL: "https://armorialdefrance.fr/images/departements/20-Corse.jpg",
+    departementCode: "2A",
+    departementLibelle: "Corse du Sud",
+  },
+  {
+    blasonURL: "https://armorialdefrance.fr/images/departements/20-Corse.jpg",
+    departementCode: "2B",
+    departementLibelle: "Haute Corse",
+  },
+  {
     blasonURL:
       "https://armorialdefrance.fr/images/departements/21-Cote_d_Or.jpg",
     departementCode: "21",
@@ -374,6 +384,16 @@ export const departementsBlasons = [
     blasonURL: "https://armorialdefrance.fr/images/departements/69-Rhone.jpg",
     departementCode: "69",
     departementLibelle: "Rhône",
+  },
+  {
+    blasonURL: "https://armorialdefrance.fr/images/departements/69-Rhone.jpg",
+    departementCode: "69D",
+    departementLibelle: "Rhône",
+  },
+  {
+    blasonURL: "https://armorialdefrance.fr/images/departements/69-Rhone.jpg",
+    departementCode: "69M",
+    departementLibelle: "Métropole de Lyon",
   },
   {
     blasonURL:
