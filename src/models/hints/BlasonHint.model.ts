@@ -1,4 +1,4 @@
-import blasonService from "../../services/blason.service";
+import blasonsController from "../../controllers/blasons.controller";
 import { Hint } from "../../shared/models/hints/Hint.model";
 import { BlasonHintDto } from "../../shared/types/dto/hints/BlasonHint.dto";
 import { DepartementCode } from "../../shared/types/geo/Departement";
@@ -15,7 +15,7 @@ export class BlasonHint extends Hint {
   }
 
   _generateBlasonURL(departementCode: DepartementCode): string {
-    const blason = blasonService.get({ departementCode });
+    const blason = blasonsController.get({ departementCode });
     if (blason) return blason.blasonURL;
     console.warn(`blason not found for departement code ${departementCode}`);
     return NOT_FOUND_BLASON_URL;

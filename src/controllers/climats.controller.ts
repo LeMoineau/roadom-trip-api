@@ -2,7 +2,7 @@ import { climats } from "../constants/climats";
 import { Climat } from "../shared/types/geo/Climat";
 import { DepartementCode } from "../shared/types/geo/Departement";
 
-class ClimatService {
+class ClimatsController {
   constructor() {}
 
   get({
@@ -15,4 +15,4 @@ class ClimatService {
   }
 }
 
-export default new ClimatService();
+export default new ClimatsController();

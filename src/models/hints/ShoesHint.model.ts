@@ -1,9 +1,9 @@
 import { ShoesHintDto } from "../../../../shared/src/types/dto/hints/ShoesHint.dto";
 import { Hint } from "../../../../shared/src/models/hints/Hint.model";
-import climatService from "../../services/climat.service";
 import { Shoes } from "../../shared/types/shoes/Shoes";
 import { Climat } from "../../shared/types/geo/Climat";
 import { DepartementCode } from "../../shared/types/geo/Departement";
+import climatsController from "../../controllers/climats.controller";
 
 const DEFAULT_SHOES: Shoes = "Chaussures de sport";
 const CORRESPONDANCES_SHOES: { [s in Climat]: Shoes } = {
@@ -33,7 +33,7 @@ export class ShoesHint extends Hint {
    * @returns
    */
   _generateShoes(departementCode: DepartementCode): Shoes {
-    const climat = climatService.get({ departementCode });
+    const climat = climatsController.get({ departementCode });
     if (!!!climat) return DEFAULT_SHOES;
     return CORRESPONDANCES_SHOES[climat];
   }

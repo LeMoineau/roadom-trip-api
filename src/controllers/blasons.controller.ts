@@ -1,7 +1,7 @@
 import { departementsBlasons } from "../constants/blasons";
 import { DepartementCode } from "../shared/types/geo/Departement";
 
-class BlasonService {
+class BlasonsController {
   /**
    * Get the blason of the targeted departement
    * @returns the blason image url if found, else undefined
@@ -18,4 +18,4 @@ class BlasonService {
   }
 }
 
-export default new BlasonService();
+export default new BlasonsController();

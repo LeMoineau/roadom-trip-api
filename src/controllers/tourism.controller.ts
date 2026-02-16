@@ -4,7 +4,7 @@ import { DepartementCode } from "../shared/types/geo/Departement";
 import { Season } from "../shared/types/primitives/Date";
 import { DateUtils } from "../shared/utils/date.utils";
 
-class TourismService {
+class TourismController {
   _leaderboardByNuitees: {
     departementCode: DepartementCode;
     nbNuitees: number;
@@ -66,4 +66,4 @@ class TourismService {
   }
 }
 
-export default new TourismService();
+export default new TourismController();

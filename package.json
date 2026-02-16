@@ -33,11 +33,14 @@
     "axios": "^1.13.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
+    "csv-parse": "^6.1.0",
     "dotenv": "^16.4.5",
     "dotenv-cli": "^7.4.1",
     "express": "^4.18.2",
+    "fs": "^0.0.1-security",
     "geojson-geometries-lookup": "^0.5.0",
     "geolib": "^3.3.4",
+    "path": "^0.12.7",
     "prisma": "^5.11.0",
     "uuid": "^13.0.0"
   }

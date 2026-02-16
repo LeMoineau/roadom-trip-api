@@ -8,6 +8,7 @@ import { TourismHint } from "../models/hints/TourismHint.model";
 import { FlagHint } from "../models/hints/FlagHint.model";
 import { BlasonHint } from "../models/hints/BlasonHint.model";
 import { departements } from "../constants/departements";
+import { CelebrityHint } from "../models/hints/CelebrityHint.model";
 
 const router = Router();
 
@@ -56,7 +57,12 @@ router.get("/test", async (_: Request, res: Response) => {
 
   // const hint = new FlagHint({ departementCode: "69D" });
 
-  const hint = new BlasonHint({ departementCode: "35" });
+  // const hint = new BlasonHint({ departementCode: "35" });
+
+  const hint = new CelebrityHint({
+    endingPoint: new GeoPoint({ lat: 49, lon: 2 }),
+    nearestFromPlace: "birth",
+  });
 
   res.send(hint.toDto());
 });

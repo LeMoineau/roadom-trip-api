@@ -1,4 +1,4 @@
-import flagService from "../../services/flag.service";
+import flagsController from "../../controllers/flags.controller";
 import { Hint } from "../../shared/models/hints/Hint.model";
 import { FlagHintDto } from "../../shared/types/dto/hints/FlagHint.dto";
 import { DepartementCode } from "../../shared/types/geo/Departement";
@@ -21,7 +21,7 @@ export class FlagHint extends Hint {
     flagURL: string;
     thumbURL: string;
   } {
-    const res = flagService.get({ departementCode });
+    const res = flagsController.get({ departementCode });
     if (res) return res;
     console.warn(`flag not found for departement code ${departementCode}`);
     return {

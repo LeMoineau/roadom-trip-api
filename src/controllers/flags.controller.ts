@@ -1,8 +1,8 @@
 import { departementsFlags } from "../constants/flags";
-import departementsController from "../controllers/departements.controller";
+import departementsController from "./departements.controller";
 import { DepartementCode } from "../shared/types/geo/Departement";
 
-class FlagService {
+class FlagsController {
   /**
    * Get the flag of the targeted departement
    * @returns the flag image url and its thumbnail url if found, else undefined
@@ -21,4 +21,4 @@ class FlagService {
   }
 }
 
-export default new FlagService();
+export default new FlagsController();
