@@ -9,6 +9,7 @@ import { FlagHint } from "../models/hints/FlagHint.model";
 import { BlasonHint } from "../models/hints/BlasonHint.model";
 import { departements } from "../constants/departements";
 import { CelebrityHint } from "../models/hints/CelebrityHint.model";
+import { CompassDirectionHint } from "../models/hints/CompassDirectionHint.model";
 
 const router = Router();
 
@@ -59,9 +60,14 @@ router.get("/test", async (_: Request, res: Response) => {
 
   // const hint = new BlasonHint({ departementCode: "35" });
 
-  const hint = new CelebrityHint({
-    endingPoint: new GeoPoint({ lat: 49, lon: 2 }),
-    nearestFromPlace: "birth",
+  // const hint = new CelebrityHint({
+  //   endingPoint: new GeoPoint({ lat: 49, lon: 2 }),
+  //   nearestFromPlace: "birth",
+  // });
+
+  const hint = new CompassDirectionHint({
+    startingPoint: new GeoPoint({ lat: 49, lon: 2 }),
+    endingPoint: new GeoPoint({ lat: 48, lon: 1 }),
   });
 
   res.send(hint.toDto());

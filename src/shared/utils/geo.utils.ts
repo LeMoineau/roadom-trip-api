@@ -67,4 +67,44 @@ export namespace GeoUtils {
       coordinates: [pt.lon, pt.lat],
     });
   }
+
+  /**
+   * Convert a degree lat/lon to radian
+   * @param degrees
+   * @returns
+   */
+  export function toRadians(degrees: number): number {
+    return (degrees * Math.PI) / 180;
+  }
+
+  /**
+   * Convert a degree lat/lon to radian
+   * @param radians
+   * @returns
+   */
+  export function toDegrees(radians: number): number {
+    return (radians * 180) / Math.PI;
+  }
+
+  /**
+   * Calculate the angle from north in degree between 2 points
+   * @param startLat
+   * @param startLng
+   * @param destLat
+   * @param destLng
+   * @returns degree from north from starting point to destination point
+   */
+  export function bearing(startingPoint: GeoPoint, destinationPoint: GeoPoint) {
+    const startLat = toRadians(startingPoint.lat);
+    const startLng = toRadians(startingPoint.lon);
+    const destLat = toRadians(destinationPoint.lat);
+    const destLng = toRadians(destinationPoint.lon);
+
+    const y = Math.sin(destLng - startLng) * Math.cos(destLat);
+    const x =
+      Math.cos(startLat) * Math.sin(destLat) -
+      Math.sin(startLat) * Math.cos(destLat) * Math.cos(destLng - startLng);
+    const brng = Math.atan2(y, x);
+    return (toDegrees(brng) + 360) % 360;
+  }
 }
