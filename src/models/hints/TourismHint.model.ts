@@ -1,6 +1,6 @@
 import { departements } from "../../constants/departements";
 import tourismController from "../../controllers/tourism.controller";
-import { Hint } from "../../shared/models/hints/Hint.model";
+import { Hint, HintProps } from "../../shared/models/Hint.model";
 import {
   TourismHintDto,
   ToursimHintMethodGenerationMessage,
@@ -17,11 +17,12 @@ export class TourismHint extends Hint {
     methodGenerationMessage = MathUtils.getRandomFloat(100) > 50
       ? "departement-rank"
       : "most-popular-season",
+    ...props
   }: {
     endingDepartementCode: DepartementCode;
     methodGenerationMessage?: ToursimHintMethodGenerationMessage;
-  }) {
-    super();
+  } & HintProps) {
+    super(props);
     this.methodGenerationMessage = methodGenerationMessage;
     this.message =
       this.methodGenerationMessage === "departement-rank"
@@ -53,6 +54,7 @@ export class TourismHint extends Hint {
 
   toDto(): TourismHintDto {
     return {
+      ...super.toDto(),
       type: "tourism-hint",
       message: this.message,
       methodGenerationMessage: this.methodGenerationMessage,

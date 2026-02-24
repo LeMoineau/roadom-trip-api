@@ -3,6 +3,7 @@ import { TripDto } from "../types/dto/trip/Trip.dto";
 import { UUID } from "../types/primitives/Identifier";
 import { GeoPoint } from "./GeoPoint.model";
 import { v4 as uuidv4 } from "uuid";
+import { Step } from "./Step.model";
 
 let TRIP_ID_SEQ = 1;
 
@@ -11,17 +12,20 @@ export class Trip {
   startingPos: GeoPoint;
   endingPos: GeoPoint;
   createdAt: Date;
+  steps: Step[];
 
   constructor({
     startingPos,
     endingPos,
     id = `${TRIP_ID_SEQ++}`, //uuidv4()
     createdAt = new Date(),
+    steps = [],
   }: {
     startingPos: GeoPointDto;
     endingPos: GeoPointDto;
     id?: UUID;
     createdAt?: Date | string;
+    steps?: Step[];
   }) {
     this.id = id;
     this.startingPos = new GeoPoint(startingPos);
@@ -35,6 +39,7 @@ export class Trip {
     } else {
       this.createdAt = createdAt;
     }
+    this.steps = steps;
   }
 
   toDto(): TripDto {
@@ -43,6 +48,7 @@ export class Trip {
       startingPos: this.startingPos.toDto(),
       endingPos: this.endingPos.toDto(),
       createdAt: this.createdAt.toString(),
+      steps: this.steps,
     };
   }
 }

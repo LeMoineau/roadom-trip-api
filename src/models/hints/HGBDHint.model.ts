@@ -6,7 +6,8 @@ import {
 import { GeoUtils } from "../../../../shared/src/utils/geo.utils";
 import { MathUtils } from "../../../../shared/src/utils/math.utils";
 import { GeoPoint } from "../../../../shared/src/models/GeoPoint.model";
-import { Hint } from "../../../../shared/src/models/hints/Hint.model";
+import { Hint } from "../../../../shared/src/models/Hint.model";
+import { HintProps } from "../../shared/models/Hint.model";
 
 /**
  * Points for France
@@ -29,12 +30,13 @@ export class HGBDHint extends Hint {
     startingPos,
     endingPos,
     methodGenerationDirection,
+    ...props
   }: {
     startingPos: GeoPoint;
     endingPos: GeoPoint;
     methodGenerationDirection?: HGBDHintMethodGenerationDirection;
-  }) {
-    super();
+  } & HintProps) {
+    super(props);
     this.methodGenerationDirection =
       methodGenerationDirection ??
       (MathUtils.getRandomFloat(100) > 50
@@ -80,6 +82,7 @@ export class HGBDHint extends Hint {
 
   toDto(): HGBDHintDto {
     return {
+      ...super.toDto(),
       type: "haut-gauche-bas-droite-hint",
       direction: this.direction,
       methodGenerationDirection: this.methodGenerationDirection,

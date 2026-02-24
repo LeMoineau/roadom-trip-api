@@ -1,5 +1,5 @@
 import blasonsController from "../../controllers/blasons.controller";
-import { Hint } from "../../shared/models/hints/Hint.model";
+import { Hint, HintProps } from "../../shared/models/Hint.model";
 import { BlasonHintDto } from "../../shared/types/dto/hints/BlasonHint.dto";
 import { DepartementCode } from "../../shared/types/geo/Departement";
 
@@ -9,8 +9,11 @@ const NOT_FOUND_BLASON_URL =
 export class BlasonHint extends Hint {
   blasonURL: string;
 
-  constructor({ departementCode }: { departementCode: DepartementCode }) {
-    super();
+  constructor({
+    departementCode,
+    ...props
+  }: { departementCode: DepartementCode } & HintProps) {
+    super(props);
     this.blasonURL = this._generateBlasonURL(departementCode);
   }
 
@@ -23,6 +26,7 @@ export class BlasonHint extends Hint {
 
   toDto(): BlasonHintDto {
     return {
+      ...super.toDto(),
       type: "departement-blason-hint",
       blasonURL: this.blasonURL,
     };

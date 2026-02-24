@@ -1,5 +1,5 @@
 import { GeoPoint } from "../../shared/models/GeoPoint.model";
-import { Hint } from "../../shared/models/hints/Hint.model";
+import { Hint, HintProps } from "../../shared/models/Hint.model";
 import { CompassDirectionHintDto } from "../../shared/types/dto/hints/CompassDirectionHint.dto";
 import { GeoUtils } from "../../shared/utils/geo.utils";
 
@@ -9,11 +9,12 @@ export class CompassDirectionHint extends Hint {
   constructor({
     endingPoint,
     startingPoint,
+    ...props
   }: {
     endingPoint: GeoPoint;
     startingPoint: GeoPoint;
-  }) {
-    super();
+  } & HintProps) {
+    super(props);
     this.direction = this._generateDirection(startingPoint, endingPoint);
   }
 
@@ -23,6 +24,7 @@ export class CompassDirectionHint extends Hint {
 
   toDto(): CompassDirectionHintDto {
     return {
+      ...super.toDto(),
       type: "compass-direction-hint",
       direction: this.direction,
       from: "north",

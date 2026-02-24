@@ -1,9 +1,10 @@
 import { ShoesHintDto } from "../../../../shared/src/types/dto/hints/ShoesHint.dto";
-import { Hint } from "../../../../shared/src/models/hints/Hint.model";
+import { Hint } from "../../../../shared/src/models/Hint.model";
 import { Shoes } from "../../shared/types/shoes/Shoes";
 import { Climat } from "../../shared/types/geo/Climat";
 import { DepartementCode } from "../../shared/types/geo/Departement";
 import climatsController from "../../controllers/climats.controller";
+import { HintProps } from "../../shared/models/Hint.model";
 
 const DEFAULT_SHOES: Shoes = "Chaussures de sport";
 const CORRESPONDANCES_SHOES: { [s in Climat]: Shoes } = {
@@ -22,8 +23,11 @@ const CORRESPONDANCES_SHOES: { [s in Climat]: Shoes } = {
 export class ShoesHint extends Hint {
   shoes: string;
 
-  constructor({ departementCode }: { departementCode: DepartementCode }) {
-    super();
+  constructor({
+    departementCode,
+    ...props
+  }: { departementCode: DepartementCode } & HintProps) {
+    super(props);
     this.shoes = this._generateShoes(departementCode);
   }
 
@@ -40,6 +44,7 @@ export class ShoesHint extends Hint {
 
   toDto(): ShoesHintDto {
     return {
+      ...super.toDto(),
       type: "shoes-hint",
       shoes: this.shoes,
     };

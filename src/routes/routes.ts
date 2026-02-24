@@ -68,6 +68,7 @@ router.get("/test", async (_: Request, res: Response) => {
   const hint = new CompassDirectionHint({
     startingPoint: new GeoPoint({ lat: 49, lon: 2 }),
     endingPoint: new GeoPoint({ lat: 48, lon: 1 }),
+    availableAt: new Date(),
   });
 
   res.send(hint.toDto());

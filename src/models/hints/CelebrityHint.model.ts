@@ -1,6 +1,6 @@
 import celebritiesController from "../../controllers/celebrities.controller";
 import { GeoPoint } from "../../shared/models/GeoPoint.model";
-import { Hint } from "../../shared/models/hints/Hint.model";
+import { Hint, HintProps } from "../../shared/models/Hint.model";
 import { Celebrity } from "../../shared/types/celebrities/Celebrity";
 import { CelebrityHintDto } from "../../shared/types/dto/hints/CelebrityHint.dto";
 import { MathUtils } from "../../shared/utils/math.utils";
@@ -12,11 +12,12 @@ export class CelebrityHint extends Hint {
   constructor({
     endingPoint,
     nearestFromPlace,
+    ...props
   }: {
     endingPoint: GeoPoint;
     nearestFromPlace?: "birth" | "death";
-  }) {
-    super();
+  } & HintProps) {
+    super(props);
     this.nearestFromPlace =
       nearestFromPlace ??
       (MathUtils.getRandomFloat(100) > 50 ? "birth" : "death");
@@ -36,6 +37,7 @@ export class CelebrityHint extends Hint {
 
   toDto(): CelebrityHintDto {
     return {
+      ...super.toDto(),
       type: "celebrity-hint",
       celebrity: this.celebrity,
       nearestFromPlace: this.nearestFromPlace,

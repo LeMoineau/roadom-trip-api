@@ -2,6 +2,7 @@ import { GeoUtils } from "../shared/utils/geo.utils";
 import { GeoPoint } from "../shared/models/GeoPoint.model";
 import { CreatingTripRequest } from "../shared/types/dto/trip/CreatingTripRequest";
 import { Trip } from "../shared/models/Trip.model";
+import stepsFactory from "./steps.factory";
 
 const DEFAULT_STARTING_POS_LABEL = "Point de départ";
 
@@ -16,7 +17,7 @@ class TripFactory {
   async create(req: CreatingTripRequest): Promise<Trip> {
     console.log("trip request: ", req);
 
-    // Get ending pos
+    // Generate ending pos
     let endingPos = this._getRandomPointInAllowedDistance(req);
     while (GeoUtils.isInSea(endingPos)) {
       endingPos = this._getRandomPointInAllowedDistance(req);
@@ -25,11 +26,17 @@ class TripFactory {
     console.log("ending pos:", endingPos);
     console.log("is in sea: ", GeoUtils.isInSea(endingPos));
 
-    return new Trip({
+    // Generate trip instance
+    const trip = new Trip({
       startingPos: { label: DEFAULT_STARTING_POS_LABEL, ...req.startingPos },
       endingPos: endingPos.toDto(),
       createdAt: new Date(),
     });
+
+    // Generate trip steps
+    trip.steps = await stepsFactory.create(trip);
+
+    return trip;
   }
 
   _getRandomPointInAllowedDistance(req: CreatingTripRequest): GeoPoint {

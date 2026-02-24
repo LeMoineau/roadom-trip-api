@@ -1,6 +1,7 @@
 import flagsController from "../../controllers/flags.controller";
-import { Hint } from "../../shared/models/hints/Hint.model";
+import { Hint } from "../../shared/models/Hint.model";
 import { FlagHintDto } from "../../shared/types/dto/hints/FlagHint.dto";
+import { HintDto } from "../../shared/types/dto/hints/Hint.dto";
 import { DepartementCode } from "../../shared/types/geo/Departement";
 
 const NOT_FOUND_FLAG_URL =
@@ -10,8 +11,11 @@ export class FlagHint extends Hint {
   flagURL: string;
   thumbURL: string;
 
-  constructor({ departementCode }: { departementCode: DepartementCode }) {
-    super();
+  constructor({
+    departementCode,
+    ...props
+  }: { departementCode: DepartementCode } & HintDto) {
+    super(props);
     const { flagURL, thumbURL } = this._generateFlagUrls(departementCode);
     this.flagURL = flagURL;
     this.thumbURL = thumbURL;
@@ -32,6 +36,7 @@ export class FlagHint extends Hint {
 
   toDto(): FlagHintDto {
     return {
+      ...super.toDto(),
       type: "departement-flag-hint",
       flagURL: this.flagURL,
       thumbURL: this.thumbURL,

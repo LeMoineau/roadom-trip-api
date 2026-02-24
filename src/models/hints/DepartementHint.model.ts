@@ -1,11 +1,14 @@
-import { Hint } from "../../shared/models/hints/Hint.model";
+import { Hint, HintProps } from "../../shared/models/Hint.model";
 import { DepartementHintDto } from "../../shared/types/dto/hints/DepartementHint.dto";
 
 export class DepartementHint extends Hint {
   message: string;
 
-  constructor({ departementLibelle }: { departementLibelle: string }) {
-    super();
+  constructor({
+    departementLibelle,
+    ...props
+  }: { departementLibelle: string } & HintProps) {
+    super(props);
     this.message = this._generateMessage(departementLibelle);
   }
 
@@ -15,6 +18,7 @@ export class DepartementHint extends Hint {
 
   toDto(): DepartementHintDto {
     return {
+      ...super.toDto(),
       type: "departement-hint",
       message: this.message,
     };
