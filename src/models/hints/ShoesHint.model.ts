@@ -1,10 +1,9 @@
 import { ShoesHintDto } from "../../../../shared/src/types/dto/hints/ShoesHint.dto";
-import { Hint } from "../../../../shared/src/models/Hint.model";
-import { Shoes } from "../../shared/types/shoes/Shoes";
 import { Climat } from "../../shared/types/geo/Climat";
 import { DepartementCode } from "../../shared/types/geo/Departement";
 import climatsController from "../../controllers/climats.controller";
-import { HintProps } from "../../shared/models/Hint.model";
+import { Shoes } from "../../shared/types/metier/Shoes";
+import { Hint, HintProps } from "../../shared/models/Hint.model";
 
 const DEFAULT_SHOES: Shoes = "Chaussures de sport";
 const CORRESPONDANCES_SHOES: { [s in Climat]: Shoes } = {
@@ -21,7 +20,7 @@ const CORRESPONDANCES_SHOES: { [s in Climat]: Shoes } = {
  * Hint which give a type of shoes according to ending departement
  */
 export class ShoesHint extends Hint {
-  shoes: string;
+  shoes: Shoes;
 
   constructor({
     departementCode,

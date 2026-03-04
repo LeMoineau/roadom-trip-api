@@ -1,7 +1,7 @@
 import { departements } from "../constants/departements";
 import { Departement } from "../shared/types/geo/Departement";
 
-export class DepartementsController {
+class DepartementsController {
   constructor() {}
 
   get({

@@ -8,6 +8,10 @@ export class Hint extends Step {
     super(props);
   }
 
+  /**
+   * Convert the model into dto for transfer between services
+   * @returns corresponding hint dto
+   */
   toDto(): HintDto {
     return {
       ...super.toDto(),

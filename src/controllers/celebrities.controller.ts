@@ -1,9 +1,9 @@
 import { resolve } from "path";
 import { readFile } from "fs";
 import { GeoPoint } from "../shared/models/GeoPoint.model";
-import { Celebrity } from "../shared/types/celebrities/Celebrity";
 import { parse } from "csv-parse";
 import { GeoUtils } from "../shared/utils/geo.utils";
+import { Celebrity } from "../shared/types/metier/Celebrity";
 
 const CSV_PATH = resolve(__dirname, "./../constants/celebrities.csv");
 const CSV_HEADER = [

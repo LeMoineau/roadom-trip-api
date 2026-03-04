@@ -12,8 +12,6 @@ export class Challenge extends Step {
     return {
       ...super.toDto(),
       type: "unknown",
-      availableAt: this.availableAt,
-      reach: this.reach,
     };
   }
 }

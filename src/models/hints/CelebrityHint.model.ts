@@ -1,8 +1,8 @@
 import celebritiesController from "../../controllers/celebrities.controller";
 import { GeoPoint } from "../../shared/models/GeoPoint.model";
 import { Hint, HintProps } from "../../shared/models/Hint.model";
-import { Celebrity } from "../../shared/types/celebrities/Celebrity";
 import { CelebrityHintDto } from "../../shared/types/dto/hints/CelebrityHint.dto";
+import { Celebrity } from "../../shared/types/metier/Celebrity";
 import { MathUtils } from "../../shared/utils/math.utils";
 
 export class CelebrityHint extends Hint {
