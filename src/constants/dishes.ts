@@ -103,7 +103,7 @@ export const dishes = [
     ],
   },
   {
-    state: "Centre",
+    state: "Centre-Val de Loire",
     desc: "Région au grand patrimoine culturel, vous découvrirez les châteaux le long de la Loire.",
     dishes: [
       {

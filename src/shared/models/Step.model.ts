@@ -14,6 +14,10 @@ export class Step {
     this.reach = !!reach;
   }
 
+  /**
+   * Convert the model into dto for transfer between services
+   * @returns corresponding hint dto
+   */
   toDto(): StepDto {
     return {
       availableAt: this.availableAt,
