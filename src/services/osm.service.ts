@@ -24,7 +24,7 @@ class OSMService {
    * Reverse geocoding generates an address from a coordinate given
    * as latitude and longitude
    * @see https://nominatim.org/release-docs/latest/api/Reverse/
-   * @returns OSMResponse corresponding to lat/lon coords
+   * @returns OSMResponse corresponding to lat/lon coords or undefined if error during axios request
    */
   async reverse({
     zoom = 18,

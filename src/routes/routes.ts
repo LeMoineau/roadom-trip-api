@@ -11,6 +11,7 @@ import { departements } from "../constants/departements";
 import { CelebrityHint } from "../models/hints/CelebrityHint.model";
 import { CompassDirectionHint } from "../models/hints/CompassDirectionHint.model";
 import { DishHint } from "../models/hints/DishHint.model";
+import googleMapsService from "../services/google-maps.service";
 
 const router = Router();
 
@@ -71,6 +72,15 @@ router.get("/test", async (_: Request, res: Response) => {
   //   endingPoint: new GeoPoint({ lat: 48, lon: 1 }),
   //   availableAt: new Date(),
   // });
+
+  const as = await googleMapsService.nearbySearch({
+    keyword: "attractions",
+    location: [44, -1],
+    radius: 15000,
+  });
+
+  res.send(as);
+  return;
 
   const hint = new DishHint({
     state: "Centre",
