@@ -84,7 +84,7 @@ class GoogleMapsService {
    * @param placeId target place id
    * @returns google maps url of the place
    */
-  getGoogleMapsUrlFromPlaceId(placeId: string): string {
+  getUrlFromPlaceId(placeId: string): string {
     return `https://www.google.com/maps/place/?q=place_id:${placeId}`;
   }
 }
