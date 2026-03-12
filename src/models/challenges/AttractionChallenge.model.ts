@@ -1,19 +1,55 @@
 import { Challenge, ChallengeProps } from "../../shared/models/Challenge.model";
 import { AttractionChallengeDto } from "../../shared/types/dto/challenges/AttractionChallenge.dto";
 import { MediumHintDto } from "../../shared/types/dto/rewards/Reward";
+import { GoogleMapsPlace } from "../../shared/types/google-maps/GoogleMapsPlace";
+import { NearbySearchResponse } from "../../shared/types/google-maps/NearbySearchResponse";
 
 export class AttractionChallenge extends Challenge {
-  attraction: any;
+  attraction: GoogleMapsPlace;
   rewardedHint: MediumHintDto;
 
   constructor({
-    attraction,
+    attractions,
     rewardedHint,
     ...props
-  }: { attraction: any; rewardedHint: MediumHintDto } & ChallengeProps) {
+  }: {
+    attractions: NearbySearchResponse;
+    rewardedHint: MediumHintDto;
+  } & ChallengeProps) {
     super(props);
-    this.attraction = attraction;
+    this.attraction = this._generateAttraction(attractions);
     this.rewardedHint = rewardedHint;
+  }
+
+  /**
+   * Recupere l'attraction la plus "interessante" parmi les resultat d'une requete nearbySearch de
+   * Place API.
+   *
+   * Pour choisir l'attraction la plus interessante on suit les etapes :
+   * - tri par notes
+   * - si plusieurs vote max égaux, tri par nombre de notes
+   * @param attractions NearbySearchResponse
+   * @returns l'attraction la plus interessante
+   */
+  _generateAttraction(attractions: NearbySearchResponse): GoogleMapsPlace {
+    if (attractions.results.length <= 0) {
+      throw new Error(`no attraction found: ${JSON.stringify(attractions)}`);
+    }
+    let bestRatingPlaces = [...attractions.results].sort((a, b) => {
+      if (!!!b.rating) return b.rating ?? 0;
+      if (!!!a.rating) return b.rating ?? 0;
+      return b.rating - a.rating;
+    });
+    const maxRating = bestRatingPlaces[0].rating;
+    if (!!maxRating) {
+      let mostVotedPlaces = [...bestRatingPlaces].sort((a, b) => {
+        if (!!!b.user_ratings_total) return b.user_ratings_total ?? 0;
+        if (!!!a.user_ratings_total) return b.user_ratings_total ?? 0;
+        return b.user_ratings_total - a.user_ratings_total;
+      });
+      return mostVotedPlaces[0];
+    }
+    return bestRatingPlaces[0];
   }
 
   toDto(): AttractionChallengeDto {

@@ -1,8 +1,7 @@
 import { Challenge, ChallengeProps } from "../../shared/models/Challenge.model";
 import { FuelStopChallengeDto } from "../../shared/types/dto/challenges/FuelStopChallenge.dto";
-import { NoseChallengeDto } from "../../shared/types/dto/challenges/NoseChallenge.dto";
 
-export class NoseChallenge extends Challenge {
+export class FuelStopChallenge extends Challenge {
   constructor({ ...props }: {} & ChallengeProps) {
     super(props);
   }

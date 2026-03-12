@@ -25,7 +25,7 @@ export class ShoesHint extends Hint {
   constructor({
     departementCode,
     ...props
-  }: { departementCode: DepartementCode } & HintProps) {
+  }: { departementCode?: DepartementCode } & HintProps) {
     super(props);
     this.shoes = this._generateShoes(departementCode);
   }
@@ -35,7 +35,8 @@ export class ShoesHint extends Hint {
    * @param endingPos
    * @returns
    */
-  _generateShoes(departementCode: DepartementCode): Shoes {
+  _generateShoes(departementCode?: DepartementCode): Shoes {
+    if (!!!departementCode) return DEFAULT_SHOES;
     const climat = climatsController.get({ departementCode });
     if (!!!climat) return DEFAULT_SHOES;
     return CORRESPONDANCES_SHOES[climat];

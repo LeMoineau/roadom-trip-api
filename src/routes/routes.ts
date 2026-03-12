@@ -12,6 +12,7 @@ import { CelebrityHint } from "../models/hints/CelebrityHint.model";
 import { CompassDirectionHint } from "../models/hints/CompassDirectionHint.model";
 import { DishHint } from "../models/hints/DishHint.model";
 import googleMapsService from "../services/google-maps.service";
+import { AttractionChallenge } from "../models/challenges/AttractionChallenge.model";
 
 const router = Router();
 
@@ -60,7 +61,10 @@ router.get("/test", async (_: Request, res: Response) => {
 
   // const hint = new FlagHint({ departementCode: "69D" });
 
-  // const hint = new BlasonHint({ departementCode: "35" });
+  const hint = new BlasonHint({
+    departementCode: "35",
+    availableAt: new Date(),
+  });
 
   // const hint = new CelebrityHint({
   //   endingPoint: new GeoPoint({ lat: 49, lon: 2 }),
@@ -73,19 +77,27 @@ router.get("/test", async (_: Request, res: Response) => {
   //   availableAt: new Date(),
   // });
 
-  const as = await googleMapsService.nearbySearch({
+  // const hint = new DishHint({
+  //   state: "Centre",
+  //   availableAt: new Date(),
+  // });
+
+  const attractions = await googleMapsService.nearbySearch({
     keyword: "attractions",
     location: [44, -1],
     radius: 15000,
   });
 
-  res.send(as);
-  return;
+  if (!!attractions) {
+    const challenge = new AttractionChallenge({
+      attractions,
+      rewardedHint: hint.toDto(),
+      availableAt: new Date(),
+    });
 
-  const hint = new DishHint({
-    state: "Centre",
-    availableAt: new Date(),
-  });
+    res.send(challenge.toDto());
+    return;
+  }
 
   res.send(hint.toDto());
 });

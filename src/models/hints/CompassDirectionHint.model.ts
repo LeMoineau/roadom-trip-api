@@ -5,6 +5,7 @@ import {
   CompassDirectionHintMethod,
 } from "../../shared/types/dto/hints/CompassDirectionHint.dto";
 import { GeoUtils } from "../../shared/utils/geo.utils";
+import { MathUtils } from "../../shared/utils/math.utils";
 
 /**
  * Indice qui donne la direction précise (degrée par rapport au nord) entre le point d'arrivée
@@ -27,11 +28,15 @@ export class CompassDirectionHint extends Hint {
   }: {
     endingPoint: GeoPoint;
     startingPoint: GeoPoint;
-    method: CompassDirectionHintMethod;
+    method?: CompassDirectionHintMethod;
   } & HintProps) {
     super(props);
     this.direction = this._generateDirection(startingPoint, endingPoint);
-    this.method = method;
+    this.method =
+      method ??
+      (MathUtils.getRandomFloat(100) > 50
+        ? "from-opened-hint-pt"
+        : "from-starting-pt");
   }
 
   _generateDirection(startingPoint: GeoPoint, endingPoint: GeoPoint): number {
