@@ -1,0 +1,56 @@
+import moment from "moment";
+import { Step } from "../../../shared/models/Step.model";
+import { Trip } from "../../../shared/models/Trip.model";
+import { Departement } from "../../../shared/types/geo/Departement";
+import { OSMResponse } from "../../../shared/types/osm/OSMResponse";
+
+/**
+ * Instance of global variables for steps factory containing :
+ * - trip
+ * - steps
+ * - currentTime
+ * - endingDetails (OSMResponse)
+ * - endingDepartement (Departement)
+ */
+export class GlobalStepsVariables {
+  trip: Trip;
+  steps: Step[];
+  currentTime: Date;
+  endingDetails?: OSMResponse;
+  endingDepartement?: Departement;
+
+  constructor({
+    trip,
+    currentTime,
+    endingDetails,
+    endingDepartement,
+  }: {
+    trip: Trip;
+    currentTime?: Date;
+    endingDetails?: OSMResponse;
+    endingDepartement?: Departement;
+  }) {
+    this.trip = trip;
+    this.steps = [];
+    this.currentTime = currentTime ?? new Date();
+    this.endingDetails = endingDetails;
+    this.endingDepartement = endingDepartement;
+  }
+
+  pushStep(step: Step) {
+    this.steps.push(step);
+    this.incrementCurrentTime();
+  }
+
+  tryPushStep(stepName: string, step?: Step | false) {
+    if (!!!step) {
+      console.warn(`no ${stepName} because no departement`);
+    } else {
+      this.pushStep(step);
+    }
+  }
+
+  incrementCurrentTime() {
+    this.currentTime = moment(this.currentTime).add(30, "m").toDate();
+  }
+}

@@ -1,4 +1,3 @@
-import moment from "moment";
 import { Step } from "../shared/models/Step.model";
 import { Trip } from "../shared/models/Trip.model";
 import { HGBDHint } from "../models/hints/HGBDHint.model";
@@ -20,27 +19,9 @@ import { TourismHint } from "../models/hints/TourismHint.model";
 import { CompassDirectionHint } from "../models/hints/CompassDirectionHint.model";
 import osmService from "../services/osm.service";
 import departementsController from "../controllers/departements.controller";
-import { OSMResponse } from "../shared/types/osm/OSMResponse";
-import { Departement } from "../shared/types/geo/Departement";
 import googleMapsService from "../services/google-maps.service";
 import { GeoPoint } from "../shared/models/GeoPoint.model";
-
-/**
- * TODO: phase 4
- * - NearCityHint
- * - FuelStopChallenge,
- * - StateProductChallenge,
- * - ChangeWheelChallenge,
- * - PushCarChallenge
- */
-
-interface StepsGlobalVariables {
-  trip: Trip;
-  steps: Step[];
-  currentTime: Date;
-  endingDetails?: OSMResponse;
-  endingDepartement?: Departement;
-}
+import { GlobalStepsVariables } from "../models/utils/factories/GlobalStepsVariables";
 
 class StepsFactory {
   /**
@@ -49,13 +30,16 @@ class StepsFactory {
    * @returns array of step for the targeted trip
    */
   async create(_trip: Trip): Promise<Step[]> {
-    let globalVariables = await this._calculateGlobalVariables(_trip);
+    const vars = await this._calculateGlobalVariables(_trip);
 
-    this._generatePhase1(globalVariables);
-    this._generatePhase2(globalVariables);
-    this._generatePhase3(globalVariables);
+    //TODO: pouvoir parametrer duree max qui peut limiter nombre de phase (par defaut 9h donc 3 phases)
+    //TODO: pouvoir parametrer duree entre chaque etape (par defaut 30min)
+    this._generatePhase1(vars);
+    this._generatePhase2(vars);
+    this._generatePhase3(vars);
+    this._generatePhase4(vars);
 
-    return globalVariables.steps;
+    return vars.steps;
   }
 
   /**
@@ -63,7 +47,7 @@ class StepsFactory {
    * @param trip target trip
    * @returns object of variables
    */
-  async _calculateGlobalVariables(trip: Trip): Promise<StepsGlobalVariables> {
+  async _calculateGlobalVariables(trip: Trip): Promise<GlobalStepsVariables> {
     const endingDetails = await osmService.reverse({
       lat: trip.endingPos.lat,
       lon: trip.endingPos.lon,
@@ -75,17 +59,7 @@ class StepsFactory {
           libelle: endingDetails.address.county,
         })
       : undefined;
-    return {
-      trip,
-      steps: [],
-      currentTime: new Date(),
-      endingDetails,
-      endingDepartement,
-    };
-  }
-
-  _incrementCurrentTime(currentTime: Date): Date {
-    return moment(currentTime).add(30, "m").toDate();
+    return new GlobalStepsVariables({ trip, endingDetails, endingDepartement });
   }
 
   /**
@@ -99,51 +73,39 @@ class StepsFactory {
    *
    * @param variables global steps variables
    */
-  async _generatePhase1({
-    trip,
-    steps,
-    currentTime,
-    endingDepartement,
-  }: StepsGlobalVariables) {
-    steps.push(
+  async _generatePhase1(vars: GlobalStepsVariables) {
+    vars.pushStep(
       new HGBDHint({
-        startingPos: trip.startingPos,
-        endingPos: trip.endingPos,
-        availableAt: currentTime,
+        startingPos: vars.trip.startingPos,
+        endingPos: vars.trip.endingPos,
+        availableAt: vars.currentTime,
       }),
     );
-    currentTime = this._incrementCurrentTime(currentTime);
-    steps.push(
+    vars.pushStep(
       new ShoesHint({
-        departementCode: endingDepartement?.code,
-        availableAt: currentTime,
+        departementCode: vars.endingDepartement?.code,
+        availableAt: vars.currentTime,
       }),
     );
-    currentTime = this._incrementCurrentTime(currentTime);
-    steps.push(
+    vars.pushStep(
       new NoseChallenge({
-        availableAt: currentTime,
+        availableAt: vars.currentTime,
       }),
     );
-    currentTime = this._incrementCurrentTime(currentTime);
-    if (!!!endingDepartement) {
-      console.warn("no tourism hint because no departement");
-    } else {
-      steps.push(
+    vars.tryPushStep(
+      "tourism hint",
+      !!vars.endingDepartement &&
         new TourismHint({
-          endingDepartementCode: endingDepartement.code,
-          availableAt: currentTime,
+          endingDepartementCode: vars.endingDepartement.code,
+          availableAt: vars.currentTime,
         }),
-      );
-      currentTime = this._incrementCurrentTime(currentTime);
-    }
+    );
     //TODO: creating new phase 1 hint
-    steps.push(
+    vars.pushStep(
       new PotatoeChallenge({
-        availableAt: currentTime,
+        availableAt: vars.currentTime,
       }),
     );
-    currentTime = this._incrementCurrentTime(currentTime);
   }
 
   /**
@@ -157,59 +119,42 @@ class StepsFactory {
    *
    * @param variables global steps variables
    */
-  async _generatePhase2({
-    trip,
-    steps,
-    currentTime,
-    endingDetails,
-    endingDepartement,
-  }: StepsGlobalVariables) {
-    if (!!!endingDetails) {
-      console.warn("no state hint because no ending details");
-    } else {
-      steps.push(
+  async _generatePhase2(vars: GlobalStepsVariables) {
+    vars.tryPushStep(
+      "state hint",
+      !!vars.endingDetails &&
         new StateHint({
-          stateLibelle: endingDetails.address.state,
-          availableAt: currentTime,
+          stateLibelle: vars.endingDetails.address.state,
+          availableAt: vars.currentTime,
         }),
-      );
-      currentTime = this._incrementCurrentTime(currentTime);
-    }
-    if (!!!endingDepartement) {
-      console.warn("no blason hint because no departement");
-    } else {
-      steps.push(
+    );
+    vars.tryPushStep(
+      "blason hint",
+      !!vars.endingDepartement &&
         new BlasonHint({
-          departementCode: endingDepartement.code,
-          availableAt: currentTime,
+          departementCode: vars.endingDepartement.code,
+          availableAt: vars.currentTime,
         }),
-      );
-      currentTime = this._incrementCurrentTime(currentTime);
-    }
-    steps.push(
+    );
+    vars.pushStep(
       new BlueCar5Challenge({
-        availableAt: currentTime,
+        availableAt: vars.currentTime,
       }),
     );
-    currentTime = this._incrementCurrentTime(currentTime);
-    if (!!!endingDetails) {
-      console.warn("no dish hint because no ending details");
-    } else {
-      steps.push(
+    vars.tryPushStep(
+      "dish hint",
+      !!vars.endingDetails &&
         new DishHint({
-          state: endingDetails.address.state,
-          availableAt: currentTime,
+          state: vars.endingDetails.address.state,
+          availableAt: vars.currentTime,
         }),
-      );
-      currentTime = this._incrementCurrentTime(currentTime);
-    }
+    );
     //TODO: rebusHint
-    steps.push(
+    vars.pushStep(
       new Toyota5Challenge({
-        availableAt: currentTime,
+        availableAt: vars.currentTime,
       }),
     );
-    currentTime = this._incrementCurrentTime(currentTime);
   }
 
   /**
@@ -223,81 +168,127 @@ class StepsFactory {
    *
    * @param variables global steps variables
    */
-  async _generatePhase3({
-    trip,
-    steps,
-    currentTime,
-    endingDetails,
-    endingDepartement,
-  }: StepsGlobalVariables) {
-    if (!!!endingDepartement) {
-      console.warn("no departement hint because no ending details");
-    } else {
-      steps.push(
+  async _generatePhase3(vars: GlobalStepsVariables) {
+    vars.tryPushStep(
+      "departement hint",
+      !!vars.endingDepartement &&
         new DepartementHint({
-          departementLibelle: endingDepartement.libelle,
-          availableAt: currentTime,
+          departementLibelle: vars.endingDepartement.libelle,
+          availableAt: vars.currentTime,
         }),
-      );
-      currentTime = this._incrementCurrentTime(currentTime);
-    }
-    steps.push(
+    );
+    vars.pushStep(
       new CelebrityHint({
-        endingPoint: trip.endingPos,
-        availableAt: currentTime,
+        endingPoint: vars.trip.endingPos,
+        availableAt: vars.currentTime,
       }),
     );
-    currentTime = this._incrementCurrentTime(currentTime);
-    this._generateAttractionChallenge({
-      trip,
-      steps,
-      currentTime,
-      endingDepartement,
-      endingDetails,
-    });
+    this._generateAttractionChallenge(vars);
     //TODO: PreciseDescriptionHint
-    steps.push(
+    vars.pushStep(
       new CompassDirectionHint({
-        endingPoint: trip.endingPos,
-        startingPoint: trip.startingPos,
-        availableAt: currentTime,
+        endingPoint: vars.trip.endingPos,
+        startingPoint: vars.trip.startingPos,
+        availableAt: vars.currentTime,
       }),
     );
-    currentTime = this._incrementCurrentTime(currentTime);
-    steps.push(new ComplimentChallenge({ availableAt: currentTime }));
-    currentTime = this._incrementCurrentTime(currentTime);
+    vars.pushStep(new ComplimentChallenge({ availableAt: vars.currentTime }));
   }
 
-  async _generateAttractionChallenge({
-    trip,
-    currentTime,
-    steps,
-    endingDepartement,
-  }: StepsGlobalVariables): Promise<void> {
+  /**
+   * Generate hints and challenges of phase 4 :
+   * - NearCityHint
+   * - FuelStopChallenge,
+   * - StateProductChallenge,
+   * - ChangeWheelChallenge,
+   * - PushCarChallenge
+   *
+   * @param variables global steps variables
+   */
+  async _generatePhase4(vars: GlobalStepsVariables) {
+    this._generateNearCityHint(vars);
+    vars.pushStep(
+      new FuelStopChallenge({
+        availableAt: vars.currentTime,
+      }),
+    );
+    this._generateStateProductChallenge(vars);
+    //TODO: ChangeWheelChallenge
+    //TODO: PushCarChallenge
+  }
+
+  /**
+   * Generate the attraction challenge and put it into global steps variables
+   * @param variables global steps variables
+   * @returns void (challenge if created, is already added to steps in variables)
+   */
+  async _generateAttractionChallenge(
+    vars: GlobalStepsVariables,
+  ): Promise<void> {
+    if (!!!vars.endingDepartement) {
+      console.warn(
+        "no attraction challenge hint because no attractions found so no attraction challenge",
+      );
+      return;
+    }
     const middlePoint = new GeoPoint({
-      lat: (trip.startingPos.lat + trip.endingPos.lat) / 2,
-      lon: (trip.startingPos.lon + trip.endingPos.lon) / 2,
+      lat: (vars.trip.startingPos.lat + vars.trip.endingPos.lat) / 2,
+      lon: (vars.trip.startingPos.lon + vars.trip.endingPos.lon) / 2,
     });
     const attractions = await googleMapsService.nearbySearch({
       keyword: "attractions",
       location: [middlePoint.lat, middlePoint.lon],
       radius: 15000,
     });
-    if (!!!attractions) {
-      console.warn("no attraction challenge because no attractions found");
-    } else {
-      steps.push(
+    vars.tryPushStep(
+      "attraction challenge",
+      !!attractions &&
+        !!vars.endingDepartement &&
         new AttractionChallenge({
           rewardedHint: new BlasonHint({
-            departementCode: endingDepartement!.code,
-            availableAt: currentTime,
+            departementCode: vars.endingDepartement.code,
+            availableAt: vars.currentTime,
           }).toDto(),
           attractions,
-          availableAt: currentTime,
+          availableAt: vars.currentTime,
         }),
-      );
-      currentTime = this._incrementCurrentTime(currentTime);
-    }
+    );
+  }
+
+  /**
+   * Generate a near city hint and put it into global steps variables
+   * @param variables global steps variables
+   * @returns void (hint if created, is already added to steps in variables)
+   */
+  async _generateNearCityHint(vars: GlobalStepsVariables): Promise<void> {
+    //faire un while autour du ending point (+-) 10km (puis 20, 30..etc) osm reverse jusqu'à trouver une adresse avec une autre city
+    //TODO: generate near city hint
+  }
+
+  /**
+   * Generate the state product challenge and put it into global steps variables
+   * @param variables global steps variables
+   * @returns void (challenge if created, is already added to steps in variables)
+   */
+  async _generateStateProductChallenge(
+    vars: GlobalStepsVariables,
+  ): Promise<void> {
+    const celebrityHint = vars.steps.find((s) => s instanceof CelebrityHint);
+    vars.tryPushStep(
+      "state product challenge",
+      !!vars.endingDetails &&
+        new StateProductChallenge({
+          stateLibelle: vars.endingDetails.address.state,
+          rewardedHint: new CelebrityHint({
+            endingPoint: vars.trip.endingPos,
+            nearestFromPlace: !!celebrityHint
+              ? celebrityHint.getOppositeMethod()
+              : undefined,
+            availableAt: vars.currentTime,
+          }).toDto(),
+          availableAt: vars.currentTime,
+        }),
+    );
   }
 }
 

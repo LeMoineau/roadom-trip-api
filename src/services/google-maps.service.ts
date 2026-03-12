@@ -43,8 +43,15 @@ class GoogleMapsService {
       })
       .then((res) => {
         if (!!!res.data || !!res.data.error) {
-          // if error during axios request
-          console.error(res.data);
+          console.error(
+            "error getting nearby search data for input: ",
+            {
+              ...request,
+              location: request.location.join(","),
+              key: "**HIDDEN**",
+            },
+            res.data,
+          );
           return;
         }
         return res.data as NearbySearchResponse;
@@ -71,8 +78,14 @@ class GoogleMapsService {
       })
       .then((res) => {
         if (!!!res.data || !!res.data.error) {
-          // if error during axios request
-          console.error(res.data);
+          console.error(
+            "error getting nearby search data for input: ",
+            {
+              place_id: placeId,
+              key: "**HIDDEN**",
+            },
+            res.data,
+          );
           return;
         }
         return res.data as PlaceDetailsResponse;

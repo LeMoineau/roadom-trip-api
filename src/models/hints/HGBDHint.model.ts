@@ -1,13 +1,12 @@
+import { GeoPoint } from "../../shared/models/GeoPoint.model";
+import { Hint, HintProps } from "../../shared/models/Hint.model";
 import {
   HGBDHintDirection,
   HGBDHintDto,
   HGBDHintMethodGenerationDirection,
-} from "../../../../shared/src/types/dto/hints/HGBDHint.dto";
-import { GeoUtils } from "../../../../shared/src/utils/geo.utils";
-import { MathUtils } from "../../../../shared/src/utils/math.utils";
-import { GeoPoint } from "../../../../shared/src/models/GeoPoint.model";
-import { Hint } from "../../../../shared/src/models/Hint.model";
-import { HintProps } from "../../shared/models/Hint.model";
+} from "../../shared/types/dto/hints/HGBDHint.dto";
+import { GeoUtils } from "../../shared/utils/geo.utils";
+import { MathUtils } from "../../shared/utils/math.utils";
 
 /**
  * Points for France

@@ -25,6 +25,7 @@ class TripFactory {
 
     console.log("ending pos:", endingPos);
     console.log("is in sea: ", GeoUtils.isInSea(endingPos));
+    endingPos.label = "Destination";
 
     // Generate trip instance
     const trip = new Trip({

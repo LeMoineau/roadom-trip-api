@@ -48,7 +48,7 @@ export class Trip {
       startingPos: this.startingPos.toDto(),
       endingPos: this.endingPos.toDto(),
       createdAt: this.createdAt.toString(),
-      steps: this.steps,
+      steps: this.steps.map((s) => s.toDto()),
     };
   }
 }

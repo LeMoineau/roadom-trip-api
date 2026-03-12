@@ -4,6 +4,9 @@ import { MediumHintDto } from "../../shared/types/dto/rewards/Reward";
 import { GoogleMapsPlace } from "../../shared/types/google-maps/GoogleMapsPlace";
 import { NearbySearchResponse } from "../../shared/types/google-maps/NearbySearchResponse";
 
+//TODO: add default place
+const DEFAULT_PLACE = {} as GoogleMapsPlace;
+
 export class AttractionChallenge extends Challenge {
   attraction: GoogleMapsPlace;
   rewardedHint: MediumHintDto;
@@ -33,7 +36,10 @@ export class AttractionChallenge extends Challenge {
    */
   _generateAttraction(attractions: NearbySearchResponse): GoogleMapsPlace {
     if (attractions.results.length <= 0) {
-      throw new Error(`no attraction found: ${JSON.stringify(attractions)}`);
+      console.warn(
+        `no attractions in nearby search response : ${JSON.stringify(attractions)}`,
+      );
+      return DEFAULT_PLACE;
     }
     let bestRatingPlaces = [...attractions.results].sort((a, b) => {
       if (!!!b.rating) return b.rating ?? 0;

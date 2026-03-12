@@ -9,6 +9,7 @@ const tripRouter = Router();
 
 tripRouter.get("/:id", async (req: Request, res: Response) => {
   try {
+    res.send(req.params.id);
   } catch (err) {
     res
       .status(400)

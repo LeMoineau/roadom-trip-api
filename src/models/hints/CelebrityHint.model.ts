@@ -5,8 +5,10 @@ import { CelebrityHintDto } from "../../shared/types/dto/hints/CelebrityHint.dto
 import { Celebrity } from "../../shared/types/metier/Celebrity";
 import { MathUtils } from "../../shared/utils/math.utils";
 
+export type CelebrityHintNearestFromPlace = "birth" | "death";
+
 export class CelebrityHint extends Hint {
-  nearestFromPlace: "birth" | "death";
+  nearestFromPlace: CelebrityHintNearestFromPlace;
   celebrity: Celebrity;
 
   constructor({
@@ -15,7 +17,7 @@ export class CelebrityHint extends Hint {
     ...props
   }: {
     endingPoint: GeoPoint;
-    nearestFromPlace?: "birth" | "death";
+    nearestFromPlace?: CelebrityHintNearestFromPlace;
   } & HintProps) {
     super(props);
     this.nearestFromPlace =
@@ -33,6 +35,11 @@ export class CelebrityHint extends Hint {
     return celebritiesController.getNearestDeathPlaceOfCelebrityFrom(
       endingPoint,
     );
+  }
+
+  getOppositeMethod(): CelebrityHintNearestFromPlace {
+    if (this.nearestFromPlace === "birth") return "death";
+    return "birth";
   }
 
   toDto(): CelebrityHintDto {
