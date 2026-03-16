@@ -13,6 +13,7 @@ import { CompassDirectionHint } from "../models/hints/CompassDirectionHint.model
 import { DishHint } from "../models/hints/DishHint.model";
 import googleMapsService from "../services/google-maps.service";
 import { AttractionChallenge } from "../models/challenges/AttractionChallenge.model";
+import wikidataService from "../services/wikidata.service";
 
 const router = Router();
 
@@ -61,10 +62,10 @@ router.get("/test", async (_: Request, res: Response) => {
 
   // const hint = new FlagHint({ departementCode: "69D" });
 
-  const hint = new BlasonHint({
-    departementCode: "35",
-    availableAt: new Date(),
-  });
+  // const hint = new BlasonHint({
+  //   departementCode: "35",
+  //   availableAt: new Date(),
+  // });
 
   // const hint = new CelebrityHint({
   //   endingPoint: new GeoPoint({ lat: 49, lon: 2 }),
@@ -82,24 +83,30 @@ router.get("/test", async (_: Request, res: Response) => {
   //   availableAt: new Date(),
   // });
 
-  const attractions = await googleMapsService.nearbySearch({
-    keyword: "attractions",
-    location: [44, -1],
-    radius: 15000,
+  // const attractions = await googleMapsService.nearbySearch({
+  //   keyword: "attractions",
+  //   location: [44, -1],
+  //   radius: 15000,
+  // });
+
+  // if (!!attractions) {
+  //   const challenge = new AttractionChallenge({
+  //     attractions,
+  //     rewardedHint: hint.toDto(),
+  //     availableAt: new Date(),
+  //   });
+
+  //   res.send(challenge.toDto());
+  //   return;
+  // }
+
+  // res.send(hint.toDto());
+
+  const city = "Montigny-le-Bretonneux";
+  const t = await wikidataService.getPopulationOfCity({
+    city,
   });
-
-  if (!!attractions) {
-    const challenge = new AttractionChallenge({
-      attractions,
-      rewardedHint: hint.toDto(),
-      availableAt: new Date(),
-    });
-
-    res.send(challenge.toDto());
-    return;
-  }
-
-  res.send(hint.toDto());
+  res.send({ city, population: t });
 });
 
 export default router;

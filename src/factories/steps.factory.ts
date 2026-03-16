@@ -22,6 +22,8 @@ import departementsController from "../controllers/departements.controller";
 import googleMapsService from "../services/google-maps.service";
 import { GeoPoint } from "../shared/models/GeoPoint.model";
 import { GlobalStepsVariables } from "../models/utils/factories/GlobalStepsVariables";
+import wikidataService from "../services/wikidata.service";
+import { CityPopulationHint } from "../models/hints/CityPopulationHint.model";
 
 class StepsFactory {
   /**
@@ -68,7 +70,7 @@ class StepsFactory {
    * - ShoesHint,
    * - NoseChallenge,
    * - TourismHint,
-   * - ???,
+   * - CityPopulationHint,
    * - PotatoeChallenge,
    *
    * @param variables global steps variables
@@ -100,7 +102,21 @@ class StepsFactory {
           availableAt: vars.currentTime,
         }),
     );
-    //TODO: creating new phase 1 hint
+    if (!!!vars.endingDetails?.address.village) {
+      vars.logStepLack("city population hint");
+    } else {
+      const population = await wikidataService.getPopulationOfCity({
+        city: vars.endingDetails.address.village,
+      });
+      vars.tryPushStep(
+        "city population hint",
+        !!population &&
+          new CityPopulationHint({
+            population,
+            availableAt: vars.currentTime,
+          }),
+      );
+    }
     vars.pushStep(
       new PotatoeChallenge({
         availableAt: vars.currentTime,
@@ -226,9 +242,7 @@ class StepsFactory {
     vars: GlobalStepsVariables,
   ): Promise<void> {
     if (!!!vars.endingDepartement) {
-      console.warn(
-        "no attraction challenge hint because no attractions found so no attraction challenge",
-      );
+      vars.logStepLack("attraction challenge");
       return;
     }
     const middlePoint = new GeoPoint({

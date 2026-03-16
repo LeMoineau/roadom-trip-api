@@ -44,7 +44,7 @@ export class GlobalStepsVariables {
 
   tryPushStep(stepName: string, step?: Step | false) {
     if (!!!step) {
-      console.warn(`no ${stepName} because no departement`);
+      this.logStepLack(stepName);
     } else {
       this.pushStep(step);
     }
@@ -52,5 +52,9 @@ export class GlobalStepsVariables {
 
   incrementCurrentTime() {
     this.currentTime = moment(this.currentTime).add(30, "m").toDate();
+  }
+
+  logStepLack(stepName: string) {
+    console.warn(`trip #${this.trip.id}: no ${stepName}`);
   }
 }

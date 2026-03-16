@@ -5,6 +5,7 @@ class Config {
       openStreetMapURL: process.env["OPEN_STREET_MAP_URL"]!,
       googleMapsApiURL: process.env["GOOGLE_MAPS_API_URL"]!,
       googleMapsApiKey: process.env["GOOGLE_MAPS_API_KEY"]!,
+      wikidataApiURL: process.env["WIKIDATA_API_URL"]!,
     };
   }
 }
