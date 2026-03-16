@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import config from "../config/config";
+import { WikipediaResponse } from "../shared/types/wikipedia/Wikipedia";
 
 /**
  * Wikipedia API Service
@@ -30,8 +31,42 @@ class WikipediaService {
   }: {
     title: string;
   }): Promise<string | undefined> {
-    //TODO: implement method
-    return;
+    const params = {
+      action: "query",
+      titles: title,
+      prop: "extract",
+      languages: "fr",
+      format: "json",
+      explaintext: false,
+      exlimit: 1,
+      redirects: 1,
+    };
+    const data = await this.instance
+      .get("/api.php", {
+        params,
+      })
+      .then((res) => {
+        if (!!!res.data || !!res.data.error) {
+          console.error(
+            "no data or error in data getting wikipedia data for input: ",
+            params,
+            res.data,
+          );
+          return undefined;
+        }
+        return res.data as WikipediaResponse;
+      })
+      .catch((err) => {
+        console.error("error getting wikipedia data for input: ", params, err);
+        return undefined;
+      });
+    if (
+      !!!data ||
+      Object.keys(data.query.pages).filter((k) => k !== "-1").length <= 0
+    )
+      return;
+    const page = Object.values(data.query.pages)[0];
+    //TODO: finish
   }
 }
 
