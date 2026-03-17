@@ -51,7 +51,7 @@ class CelebritiesController {
             ) {
               return parseFloat(val);
             } else if (["name"].includes(ctx.column)) {
-              return val.replace("_", " ");
+              return val.split("_").join(" ");
             }
             return val;
           },

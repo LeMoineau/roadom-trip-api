@@ -16,9 +16,9 @@ export function anonymiseWikipediaPage(
   //  des occurences puis supprimer en gardant le reste du test bien formatter
   return [
     ...page.map((s) => ({
-      title: s.title.replace(toReplace, replacementText),
+      title: s.title.split(toReplace).join(replacementText),
       paragraphes: [
-        ...s.paragraphes.map((p) => p.replace(toReplace, replacementText)),
+        ...s.paragraphes.map((p) => p.split(toReplace).join(replacementText)),
       ],
     })),
   ];

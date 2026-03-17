@@ -109,10 +109,16 @@ router.get("/test", async (_: Request, res: Response) => {
   // });
   // res.send({ city, population: t });
 
-  const t = await wikipediaService.getFormattedPage({
-    title: "Montigny-le-Bretonneux",
+  // const t = await wikipediaService.getFormattedPage({
+  //   title: "Montigny-le-Bretonneux",
+  // });
+  // res.send(t);
+
+  res.send({
+    message: "coucou les amis coucou je mange des galettes coucou hehe coucou"
+      .split("coucou")
+      .join("???"),
   });
-  res.send(t);
 });
 
 export default router;

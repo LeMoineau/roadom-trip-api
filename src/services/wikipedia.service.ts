@@ -94,7 +94,7 @@ class WikipediaService {
       title: "Introduction",
       paragraphes: [],
     };
-    const doc = parse(query.extract!.trim().replace("\\n", ""));
+    const doc = parse(query.extract!.trim().split("\\n").join(""));
     for (let c of doc.children) {
       if (c.tagName === "P" && c.textContent.trim().length > 0) {
         current.paragraphes.push(c.textContent.trim());
