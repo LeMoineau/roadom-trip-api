@@ -21,9 +21,13 @@ import osmService from "../services/osm.service";
 import departementsController from "../controllers/departements.controller";
 import googleMapsService from "../services/google-maps.service";
 import { GeoPoint } from "../shared/models/GeoPoint.model";
-import { GlobalStepsVariables } from "../models/utils/factories/GlobalStepsVariables";
+import { GlobalStepsVariables } from "../utils/models/GlobalStepsVariables";
 import wikidataService from "../services/wikidata.service";
 import { CityPopulationHint } from "../models/hints/CityPopulationHint.model";
+import wikipediaService from "../services/wikipedia.service";
+import { anonymiseWikipediaPage } from "../utils/functions/anonymise-wikipedia-page";
+import { PreciseDescriptionHint } from "../models/hints/PreciseDescriptionHint.model";
+import { RebusHint } from "../models/hints/RebusHint.model";
 
 class StepsFactory {
   /**
@@ -55,13 +59,29 @@ class StepsFactory {
       lon: trip.endingPos.lon,
       zoom: 17,
     });
-    const endingDepartement = endingDetails
-      ? departementsController.get({
-          name: endingDetails.address["ISO3166-2-lvl6"],
-          libelle: endingDetails.address.county,
-        })
-      : undefined;
-    return new GlobalStepsVariables({ trip, endingDetails, endingDepartement });
+    let endingDepartement;
+    let endingWikipediaPage;
+    if (!!endingDetails) {
+      endingDepartement = departementsController.get({
+        name: endingDetails.address["ISO3166-2-lvl6"],
+        libelle: endingDetails.address.county,
+      });
+      endingWikipediaPage = await wikipediaService.getFormattedPage({
+        title: endingDetails.address.village,
+      });
+      if (!!endingWikipediaPage) {
+        endingWikipediaPage = anonymiseWikipediaPage(
+          endingWikipediaPage,
+          endingDetails.address.village,
+        );
+      }
+    }
+    return new GlobalStepsVariables({
+      trip,
+      endingDetails,
+      endingDepartement,
+      endingWikipediaPage,
+    });
   }
 
   /**
@@ -165,7 +185,14 @@ class StepsFactory {
           availableAt: vars.currentTime,
         }),
     );
-    //TODO: rebusHint
+    vars.tryPushStep(
+      "rebus hint",
+      !!vars.endingWikipediaPage &&
+        new RebusHint({
+          wikipediaPage: vars.endingWikipediaPage,
+          availableAt: vars.currentTime,
+        }),
+    );
     vars.pushStep(
       new Toyota5Challenge({
         availableAt: vars.currentTime,
@@ -200,7 +227,14 @@ class StepsFactory {
       }),
     );
     this._generateAttractionChallenge(vars);
-    //TODO: PreciseDescriptionHint
+    vars.tryPushStep(
+      "precise description hint",
+      !!vars.endingWikipediaPage &&
+        new PreciseDescriptionHint({
+          wikipediaPage: vars.endingWikipediaPage,
+          availableAt: vars.currentTime,
+        }),
+    );
     vars.pushStep(
       new CompassDirectionHint({
         endingPoint: vars.trip.endingPos,

@@ -14,6 +14,7 @@ import { DishHint } from "../models/hints/DishHint.model";
 import googleMapsService from "../services/google-maps.service";
 import { AttractionChallenge } from "../models/challenges/AttractionChallenge.model";
 import wikidataService from "../services/wikidata.service";
+import wikipediaService from "../services/wikipedia.service";
 
 const router = Router();
 
@@ -102,11 +103,16 @@ router.get("/test", async (_: Request, res: Response) => {
 
   // res.send(hint.toDto());
 
-  const city = "Montigny-le-Bretonneux";
-  const t = await wikidataService.getPopulationOfCity({
-    city,
+  // const city = "Montigny-le-Bretonneux";
+  // const t = await wikidataService.getPopulationOfCity({
+  //   city,
+  // });
+  // res.send({ city, population: t });
+
+  const t = await wikipediaService.getFormattedPage({
+    title: "Montigny-le-Bretonneux",
   });
-  res.send({ city, population: t });
+  res.send(t);
 });
 
 export default router;

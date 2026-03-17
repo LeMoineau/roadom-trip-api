@@ -1,19 +1,23 @@
 import { Hint, HintProps } from "../../shared/models/Hint.model";
 import { PreciseDescriptionHintDto } from "../../shared/types/dto/hints/PreciseDescriptionHint.dto";
+import { WikipediaFormattedPage } from "../../shared/types/wikipedia/Wikipedia";
 
 export class PreciseDescriptionHint extends Hint {
-  description: string;
+  wikipediaPage: WikipediaFormattedPage;
 
-  constructor({ description, ...props }: { description: string } & HintProps) {
+  constructor({
+    wikipediaPage,
+    ...props
+  }: { wikipediaPage: WikipediaFormattedPage } & HintProps) {
     super(props);
-    this.description = description;
+    this.wikipediaPage = wikipediaPage;
   }
 
   toDto(): PreciseDescriptionHintDto {
     return {
       ...super.toDto(),
       type: "precise-description-hint",
-      description: this.description,
+      wikipediaPage: this.wikipediaPage,
     };
   }
 }

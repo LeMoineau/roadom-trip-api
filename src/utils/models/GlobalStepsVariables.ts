@@ -1,8 +1,9 @@
 import moment from "moment";
-import { Step } from "../../../shared/models/Step.model";
-import { Trip } from "../../../shared/models/Trip.model";
-import { Departement } from "../../../shared/types/geo/Departement";
-import { OSMResponse } from "../../../shared/types/osm/OSMResponse";
+import { Step } from "../../shared/models/Step.model";
+import { Trip } from "../../shared/models/Trip.model";
+import { Departement } from "../../shared/types/geo/Departement";
+import { OSMResponse } from "../../shared/types/osm/OSMResponse";
+import { WikipediaFormattedPage } from "../../shared/types/wikipedia/Wikipedia";
 
 /**
  * Instance of global variables for steps factory containing :
@@ -18,23 +19,27 @@ export class GlobalStepsVariables {
   currentTime: Date;
   endingDetails?: OSMResponse;
   endingDepartement?: Departement;
+  endingWikipediaPage?: WikipediaFormattedPage;
 
   constructor({
     trip,
     currentTime,
     endingDetails,
     endingDepartement,
+    endingWikipediaPage,
   }: {
     trip: Trip;
     currentTime?: Date;
     endingDetails?: OSMResponse;
     endingDepartement?: Departement;
+    endingWikipediaPage?: WikipediaFormattedPage;
   }) {
     this.trip = trip;
     this.steps = [];
     this.currentTime = currentTime ?? new Date();
     this.endingDetails = endingDetails;
     this.endingDepartement = endingDepartement;
+    this.endingWikipediaPage = endingWikipediaPage;
   }
 
   pushStep(step: Step) {
