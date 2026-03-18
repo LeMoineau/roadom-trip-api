@@ -1,17 +1,32 @@
 import { Challenge, ChallengeProps } from "../../shared/models/Challenge.model";
-import { NoseChallengeDto } from "../../shared/types/dto/challenges/NoseChallenge.dto";
+import {
+  NoseChallengeDto,
+  NoseChallengeVariants,
+} from "../../shared/types/dto/challenges/NoseChallenge.dto";
+import { MathUtils } from "../../shared/utils/math.utils";
 
 export class NoseChallenge extends Challenge {
-  constructor({ ...props }: {} & ChallengeProps) {
+  variants: NoseChallengeVariants;
+
+  constructor({
+    variants,
+    ...props
+  }: { variants?: "nose" | "hat" } & ChallengeProps) {
     super(props);
+    this.variants =
+      variants ?? (MathUtils.getRandomFloat(100) > 50 ? "nose" : "hat");
+  }
+
+  _generateMessage() {
+    return `Appuie sur le ${this.variants === "nose" ? "nez" : "chapeau"} toutes à chaque fois que les heures et les minutes indiquent le même nombre pour avoir le droit de parler à 1 personne !`;
   }
 
   toDto(): NoseChallengeDto {
     return {
       ...super.toDto(),
       type: "nose-challenge",
-      message:
-        "Appuie sur le nez toutes à chaque fois que les heures et les minutes indiquent le même nombre pour avoir le droit de parler à 1 personne !",
+      message: this._generateMessage(),
+      variants: this.variants,
       reward: "ask-1-person",
       nbOfUses: "infinite",
       photos: "optional",
