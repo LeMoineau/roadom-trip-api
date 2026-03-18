@@ -6,4 +6,5 @@ export interface FuelStopChallengeDto extends ChallengeDto {
   reward: "ask-3-person";
   nbOfUses: 1;
   photos: "needed";
+  minPhotos: 1;
 }

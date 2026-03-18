@@ -13,9 +13,8 @@ export class Toyota5Challenge extends Challenge {
       message:
         "Prends en photo 5 Toyota pour avoir le droit de parler à 1 personne !",
       reward: "ask-1-person",
-      photos: "needed",
+      photos: "optional",
       nbOfUses: 1,
-      minPhotos: 5,
     };
   }
 }

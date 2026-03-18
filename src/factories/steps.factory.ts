@@ -28,6 +28,8 @@ import wikipediaService from "../services/wikipedia.service";
 import { anonymiseWikipediaPage } from "../utils/functions/anonymise-wikipedia-page";
 import { PreciseDescriptionHint } from "../models/hints/PreciseDescriptionHint.model";
 import { RebusHint } from "../models/hints/RebusHint.model";
+import { ChangeWheelChallenge } from "../models/challenges/ChangeWheelChallenge.model";
+import { PushCarChallenge } from "../models/challenges/PushCarChallenge.model";
 
 class StepsFactory {
   /**
@@ -263,8 +265,12 @@ class StepsFactory {
       }),
     );
     this._generateStateProductChallenge(vars);
-    //TODO: ChangeWheelChallenge
-    //TODO: PushCarChallenge
+    vars.pushStep(
+      new ChangeWheelChallenge({
+        availableAt: vars.currentTime,
+      }),
+    );
+    vars.pushStep(new PushCarChallenge({ availableAt: vars.currentTime }));
   }
 
   /**

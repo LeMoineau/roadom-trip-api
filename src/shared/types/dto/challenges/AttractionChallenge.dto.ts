@@ -8,4 +8,5 @@ export interface AttractionChallengeDto extends ChallengeDto {
   attraction: any;
   nbOfUses: 1;
   photos: "needed";
+  minPhotos: 1;
 }

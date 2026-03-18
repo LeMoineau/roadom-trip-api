@@ -7,4 +7,5 @@ export interface StateProductChallengeDto extends ChallengeDto {
   reward: StrongHintDto;
   nbOfUses: 1;
   photos: "needed";
+  minPhotos: 1;
 }

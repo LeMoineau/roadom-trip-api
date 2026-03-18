@@ -28,6 +28,7 @@ export class StateProductChallenge extends Challenge {
       reward: this.rewardedHint,
       nbOfUses: 1,
       photos: "needed",
+      minPhotos: 1,
     };
   }
 }

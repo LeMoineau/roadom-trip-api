@@ -10,5 +10,7 @@ export type StrongHintDto = DepartementHintDto | CelebrityHintDto;
 export type Reward =
   | "ask-1-person"
   | "ask-3-person"
+  | "ask-infinite-person"
+  | "allow-gps-5s"
   | MediumHintDto
   | StrongHintDto;

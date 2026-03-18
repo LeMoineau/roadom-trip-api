@@ -68,6 +68,7 @@ export class AttractionChallenge extends Challenge {
       attraction: this.attraction,
       nbOfUses: 1,
       photos: "needed",
+      minPhotos: 1,
     };
   }
 }
