@@ -1,10 +1,10 @@
 import { GeoPoint } from "../models/GeoPoint.model";
 import { MathUtils } from "./math.utils";
 import * as geolib from "geolib";
+import seaGeoMap from "@geo-maps/earth-seas-10m";
+import GeoJsonLookup from "geojson-geometries-lookup";
 
 // Loading the sea map
-const seaGeoMap = require("@geo-maps/earth-seas-10m")();
-const GeoJsonLookup = require("geojson-geometries-lookup");
 const seaMap = new GeoJsonLookup(seaGeoMap);
 
 export namespace GeoUtils {

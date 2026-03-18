@@ -17,7 +17,7 @@ export class Trip {
   constructor({
     startingPos,
     endingPos,
-    id = `${TRIP_ID_SEQ++}`, //uuidv4()
+    id = uuidv4(),
     createdAt = new Date(),
     steps = [],
   }: {

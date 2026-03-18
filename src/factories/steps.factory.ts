@@ -93,6 +93,7 @@ class StepsFactory {
    * - NoseChallenge,
    * - TourismHint,
    * - CityPopulationHint,
+   * (? - WeatherHint)
    * - PotatoeChallenge,
    *
    * @param variables global steps variables

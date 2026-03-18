@@ -1,3 +1,5 @@
+import openWeatherService from "../services/open-weather.service";
+
 class Config {
   getEnv() {
     return {
@@ -7,6 +9,7 @@ class Config {
       googleMapsApiKey: process.env["GOOGLE_MAPS_API_KEY"]!,
       wikidataApiURL: process.env["WIKIDATA_API_URL"]!,
       wikipediaApiURL: process.env["WIKIPEDIA_API_URL"]!,
+      openWeatherApiURL: process.env["OPEN_WEATHER_API_URL"]!,
     };
   }
 }

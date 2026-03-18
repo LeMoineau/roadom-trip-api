@@ -15,6 +15,7 @@ import googleMapsService from "../services/google-maps.service";
 import { AttractionChallenge } from "../models/challenges/AttractionChallenge.model";
 import wikidataService from "../services/wikidata.service";
 import wikipediaService from "../services/wikipedia.service";
+import openWeatherService from "../services/open-weather.service";
 
 const router = Router();
 
@@ -114,11 +115,17 @@ router.get("/test", async (_: Request, res: Response) => {
   // });
   // res.send(t);
 
-  res.send({
-    message: "coucou les amis coucou je mange des galettes coucou hehe coucou"
-      .split("coucou")
-      .join("???"),
+  // res.send({
+  //   message: "coucou les amis coucou je mange des galettes coucou hehe coucou"
+  //     .split("coucou")
+  //     .join("???"),
+  // });
+
+  const t = await openWeatherService.getForecast({
+    lat: 49,
+    lon: -1,
   });
+  res.send(t);
 });
 
 export default router;
