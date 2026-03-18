@@ -14,7 +14,8 @@ class TripFactory {
   /**
    * Create a trip from a CreatingTripRequest
    *
-   * By default, a startingPos label will be set to {DEFAULT_STARTING_POS_LABEL}
+   * By default, a startingPos label will be set to {DEFAULT_STARTING_POS_LABEL} and a endingPos
+   * label to {DEFAULT_ENDING_POS_LABEL}.
    * @param req
    * @returns
    */
