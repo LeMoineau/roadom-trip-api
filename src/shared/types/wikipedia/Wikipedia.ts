@@ -2,7 +2,7 @@ export interface WikipediaResponse {
   batchcomplete: string;
   query: {
     normalized?: { from: string; to: string }[];
-    pages: {
+    pages?: {
       [key: string]: WikipediaQuery;
     };
   };

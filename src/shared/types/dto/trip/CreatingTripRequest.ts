@@ -4,6 +4,7 @@ export interface CreatingTripRequest {
   startingPos: GeoPointDto;
   distanceMax: number;
   distanceMin?: number;
+  allowNoInformationsEnding?: boolean;
 }
 
 export function isCreatingTripRequest(req: any): req is CreatingTripRequest {

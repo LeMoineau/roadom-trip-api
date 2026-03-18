@@ -56,31 +56,27 @@ class StepsFactory {
    * @returns object of variables
    */
   async _calculateGlobalVariables(trip: Trip): Promise<GlobalStepsVariables> {
-    const endingDetails = await osmService.reverse({
-      lat: trip.endingPos.lat,
-      lon: trip.endingPos.lon,
-      zoom: 17,
-    });
     let endingDepartement;
     let endingWikipediaPage;
-    if (!!endingDetails) {
+    if (!!trip.osmDetails) {
       endingDepartement = departementsController.get({
-        name: endingDetails.address["ISO3166-2-lvl6"],
-        libelle: endingDetails.address.county,
+        name: trip.osmDetails.address["ISO3166-2-lvl6"],
+        libelle: trip.osmDetails.address.county,
       });
-      endingWikipediaPage = await wikipediaService.getFormattedPage({
-        title: endingDetails.address.village,
-      });
-      if (!!endingWikipediaPage) {
-        endingWikipediaPage = anonymiseWikipediaPage(
-          endingWikipediaPage,
-          endingDetails.address.village,
-        );
+      if (!!trip.osmDetails.address.village) {
+        endingWikipediaPage = await wikipediaService.getFormattedPage({
+          title: trip.osmDetails.address.village,
+        });
+        if (!!endingWikipediaPage) {
+          endingWikipediaPage = anonymiseWikipediaPage(
+            endingWikipediaPage,
+            trip.osmDetails.address.village,
+          );
+        }
       }
     }
     return new GlobalStepsVariables({
       trip,
-      endingDetails,
       endingDepartement,
       endingWikipediaPage,
     });
@@ -161,7 +157,7 @@ class StepsFactory {
   async _generatePhase2(vars: GlobalStepsVariables) {
     vars.tryPushStep(
       "state hint",
-      !!vars.endingDetails &&
+      !!vars.endingDetails?.address.state &&
         new StateHint({
           stateLibelle: vars.endingDetails.address.state,
           availableAt: vars.currentTime,
@@ -182,7 +178,7 @@ class StepsFactory {
     );
     vars.tryPushStep(
       "dish hint",
-      !!vars.endingDetails &&
+      !!vars.endingDetails?.address.state &&
         new DishHint({
           state: vars.endingDetails.address.state,
           availableAt: vars.currentTime,
@@ -331,7 +327,7 @@ class StepsFactory {
     const celebrityHint = vars.steps.find((s) => s instanceof CelebrityHint);
     vars.tryPushStep(
       "state product challenge",
-      !!vars.endingDetails &&
+      !!vars.endingDetails?.address.state &&
         new StateProductChallenge({
           stateLibelle: vars.endingDetails.address.state,
           rewardedHint: new CelebrityHint({

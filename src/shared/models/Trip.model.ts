@@ -4,8 +4,7 @@ import { UUID } from "../types/primitives/Identifier";
 import { GeoPoint } from "./GeoPoint.model";
 import { v4 as uuidv4 } from "uuid";
 import { Step } from "./Step.model";
-
-let TRIP_ID_SEQ = 1;
+import { OSMResponse } from "../types/osm/OSMResponse";
 
 export class Trip {
   id: UUID;
@@ -13,6 +12,7 @@ export class Trip {
   endingPos: GeoPoint;
   createdAt: Date;
   steps: Step[];
+  osmDetails?: OSMResponse;
 
   constructor({
     startingPos,
@@ -20,12 +20,14 @@ export class Trip {
     id = uuidv4(),
     createdAt = new Date(),
     steps = [],
+    osmDetails,
   }: {
     startingPos: GeoPointDto;
     endingPos: GeoPointDto;
     id?: UUID;
     createdAt?: Date | string;
     steps?: Step[];
+    osmDetails?: OSMResponse;
   }) {
     this.id = id;
     this.startingPos = new GeoPoint(startingPos);
@@ -40,6 +42,7 @@ export class Trip {
       this.createdAt = createdAt;
     }
     this.steps = steps;
+    this.osmDetails = osmDetails;
   }
 
   toDto(): TripDto {
@@ -49,6 +52,7 @@ export class Trip {
       endingPos: this.endingPos.toDto(),
       createdAt: this.createdAt.toString(),
       steps: this.steps.map((s) => s.toDto()),
+      osmDetails: this.osmDetails,
     };
   }
 }

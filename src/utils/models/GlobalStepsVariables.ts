@@ -24,20 +24,18 @@ export class GlobalStepsVariables {
   constructor({
     trip,
     currentTime,
-    endingDetails,
     endingDepartement,
     endingWikipediaPage,
   }: {
     trip: Trip;
     currentTime?: Date;
-    endingDetails?: OSMResponse;
     endingDepartement?: Departement;
     endingWikipediaPage?: WikipediaFormattedPage;
   }) {
     this.trip = trip;
     this.steps = [];
     this.currentTime = currentTime ?? new Date();
-    this.endingDetails = endingDetails;
+    this.endingDetails = trip.osmDetails;
     this.endingDepartement = endingDepartement;
     this.endingWikipediaPage = endingWikipediaPage;
   }

@@ -15,7 +15,7 @@ class OSMService {
     this.instance = axios.create({
       baseURL: this.baseURL,
       headers: {
-        "User-Agent": "roadom-trip-api/1.0 (ctop.x2@gmail.com)",
+        "User-Agent": "roadom-trip-api/1.0 (faberbastian@gmail.com)",
       },
     });
   }
@@ -29,48 +29,41 @@ class OSMService {
   async reverse({
     zoom = 18,
     format = "json",
-    ...params
+    ...props
   }: {
     lat: number;
     lon: number;
     zoom?: number;
     format?: string;
   }): Promise<OSMResponse | undefined> {
-    return this.instance
+    const params = {
+      zoom,
+      format,
+      ...props,
+    };
+    const data = await this.instance
       .get("/reverse", {
-        params: {
-          zoom,
-          format,
-          ...params,
-        },
+        params,
       })
       .then((res) => {
         if (!!!res.data || !!res.data.error) {
-          console.error(
-            "no data or error in data getting osm reverse for input: ",
-            {
-              zoom,
-              format,
-              ...params,
-            },
-            res.data,
-          );
-          return undefined;
+          return;
         }
         return res.data as OSMResponse;
       })
       .catch((err) => {
         console.error(
           "error getting osm reverse data for input: ",
-          {
-            zoom,
-            format,
-            ...params,
-          },
+          params,
           err,
         );
-        return undefined;
+        return;
       });
+    if (!!!data || !!data.error) {
+      console.warn("error during osm reverse", params, data);
+      return;
+    }
+    return data;
   }
 
   /**
@@ -81,29 +74,30 @@ class OSMService {
    */
   async search({
     format = "json",
-    ...params
+    ...props
   }: {
     q: string;
     format?: string;
   }): Promise<OSMResponse | undefined> {
-    return this.instance
+    const params = {
+      format,
+      ...props,
+    };
+    const data = await this.instance
       .get("/search", {
-        params: {
-          format,
-          ...params,
-        },
+        params,
       })
       .then((res) => {
         if (!!!res.data || !!res.data.error) {
-          console.error(
-            "error getting osm search data for input: ",
-            { format, ...params },
-            res.data,
-          );
           return;
         }
         return res.data as OSMResponse;
       });
+    if (!!!data || !!data.error) {
+      console.warn("error during osm search", params, data);
+      return;
+    }
+    return data;
   }
 }
 

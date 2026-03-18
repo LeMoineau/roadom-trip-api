@@ -66,6 +66,8 @@ class WikipediaService {
       });
     if (
       !!!data ||
+      !!!data.query ||
+      !!!data.query.pages ||
       Object.keys(data.query.pages).filter((k) => k !== "-1").length <= 0
     ) {
       console.warn(

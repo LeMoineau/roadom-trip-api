@@ -1,6 +1,6 @@
 export const dishes = [
   {
-    state: "Alsace",
+    state: "Grand Est",
     desc: "L'Alsace est l'une des plus belle région de France. Les plats souvent copieux, peuvent être accompagnés de vin blanc parfois très fruité (comme le Gewurztraminer). Les spécialités alsaciennes les plus connues sont :",
     dishes: [
       {
@@ -18,10 +18,41 @@ export const dishes = [
       {
         name: "Le pain d'épices",
       },
+      {
+        name: "La Mirabelle de Lorraine",
+        desc: "savourée en tarte, confiture, eau-de-vie ou encore nature.",
+      },
+      {
+        name: "Le Munster AOC",
+        desc: "des Vosges, au goût et à l'odorat prononcé !",
+      },
+      {
+        name: "Quiche lorraine",
+        desc: "gardie de lardons.",
+      },
+      {
+        name: "Pâté lorrain",
+        desc: "qui se prépare la veille par marinade de la viande dans du vin rouge ou blanc.",
+      },
+      {
+        name: "Les Bergamotes de Nancy",
+        desc: "bonbon carré, translucide et plat parfumé à l’huile essentielle de bergamote.",
+      },
+      {
+        name: "La Baienne",
+        desc: "pommes de terre vapeur avec des oignons cuits en cocotte.",
+      },
+      {
+        name: "Brochet farci à la champenoise",
+        desc: "à la sauce champagne avec des champignons",
+      },
+      {
+        name: "Biscuit rose de Reims",
+      },
     ],
   },
   {
-    state: "Aquitaine",
+    state: "Nouvelle-Aquitaine",
     desc: "Cette région est riche en patrimoine historique et culinaire. Vous trouverez de nombreux produits du terroir et vous pourrez visiter les grottes préhistoriques de Lascaux.",
     dishes: [
       {
@@ -35,16 +66,44 @@ export const dishes = [
       },
       {
         name: "Et encore",
-        desc: ": Jambon de Bayonne, piment d'Espelette et le fameux Foie Gras du Sud Ouest, l'huile de noix et le pruneau d'Agen, truffes du Périgord",
+        desc: "Jambon de Bayonne, piment d'Espelette et le fameux Foie Gras du Sud Ouest, l'huile de noix et le pruneau d'Agen, truffes du Périgord",
       },
       {
         name: "Les vins d'Aquitaine :",
         desc: "Jurançon, Sauterne, vins de Bordeaux et Armagnac.",
       },
+      {
+        name: "Le boeuf de race limousine",
+        desc: "viande très goûtue.",
+      },
+      {
+        name: "La moutarde à la violette",
+        desc: "mélange de graine de moutarde et de moût de raisin",
+      },
+      {
+        name: "La châtaigne",
+        desc: "ce fruit a apporté pendant des siècles la nourriture et la gagne pain de ses habitants. Le symbole de la région est d'ailleurs une feuille de châtaignier.",
+      },
+      {
+        name: "Le Clafoutis",
+        desc: "flan composé de cerises avec leur noyau.",
+      },
+      {
+        name: "Le farci poitevin",
+        desc: "sorte de pâté végétal à base de légumes (chou, épinards, poireaux), d'herbes aromatiques et parfois de viande, enveloppé dans des feuilles de chou puis cuit lentement. Il est souvent consommé froid et peut être servi en entrée ou en accompagnement.",
+      },
+      {
+        name: "Les cagouilles (ou lumas)",
+        desc: "escargots cuisinés, souvent préparés à la charentaise, mijotés avec une sauce à base de vin blanc, de persil et d'ail.",
+      },
+      {
+        name: "Le tourteau fromager",
+        desc: "un dessert typique du Poitou, fait à base de fromage de chèvre frais. Ce gâteau se caractérise par sa croûte noire (qui est volontairement brûlée) et son intérieur moelleux et légèrement acidulé.",
+      },
     ],
   },
   {
-    state: "Auvergne",
+    state: "Auvergne-Rhône-Alpes",
     desc: "Au cœur de la France, l'Auvergne aux vastes étendues, n'est pas dépourvu de spécialités.",
     dishes: [
       {
@@ -65,10 +124,22 @@ export const dishes = [
         name: "Les fromages d'Auvergne :",
         desc: "Le Cantal, le Bleu d'Auvergne, la Fourme d'Ambert, le Saint Nectaire, Salers.",
       },
+      {
+        name: "La fondue savoyarde",
+        desc: "plat emblématique des Alpes, la fondue est un mélange de fromages fondus (très souvent du Beaufort, de l'Emmental de Savoie et du Comté), du vin blanc et parfois de l'ail. On y trempe des morceaux de pain avec une longue fourchette pour savourer cette spécialité typique des repas d’hiver.",
+      },
+      {
+        name: "Le gratin dauphinois",
+        desc: "originaire du Dauphiné, ce gratin est préparé à base de pommes de terre finement tranchées, de crème, de lait, d'ail et cuit au four jusqu'à obtenir une texture fondante et une belle croûte dorée. Il est souvent servi en accompagnement des viandes.",
+      },
+      {
+        name: "La raclette",
+        desc: "ce plat savoyard est devenu un incontournable des repas conviviaux en montagne. La raclette consiste à faire fondre du fromage (traditionnellement de la raclette de Savoie) et à le verser sur des pommes de terre, accompagné de charcuteries et de cornichons. C’est un plat idéal après une journée de ski !",
+      },
     ],
   },
   {
-    state: "Bourgogne",
+    state: "Bourgogne-Franche-Comté",
     desc: "De grands vins tels que Chablis, Nuits-Saint-Georges ou le Pouilly accompagnent les plats régionaux.",
     dishes: [
       {
@@ -81,6 +152,21 @@ export const dishes = [
       },
       {
         name: "La moutarde de Dijon",
+      },
+      {
+        name: "Saucisse de Morteau",
+      },
+      {
+        name: "Les Fromages de Franche-Comté :",
+        desc: "principalement le Comté et le morbier.",
+      },
+      {
+        name: "La Fondue au comté",
+        desc: "dans laquelle on trempe des morceaux de pains rassis.",
+      },
+      {
+        name: "Tarte aux brimbelles",
+        desc: "pâte brisée couverte de myrtilles.",
       },
     ],
   },
@@ -122,24 +208,7 @@ export const dishes = [
       },
       {
         name: "Quelques vins de la région Centre",
-        desc: ": Sancerre, Chinon, Bourgueil",
-      },
-    ],
-  },
-  {
-    state: "Champagne-Ardenne",
-    desc: "C'est la région du Champagne, cet élixir accompagne plusieurs plats",
-    dishes: [
-      {
-        name: "La Baienne",
-        desc: "pommes de terre vapeur avec des oignons cuits en cocotte.",
-      },
-      {
-        name: "Brochet farci à la champenoise",
-        desc: "à la sauce champagne avec des champignons",
-      },
-      {
-        name: "Biscuit rose de Reims",
+        desc: "Sancerre, Chinon, Bourgueil",
       },
     ],
   },
@@ -166,26 +235,6 @@ export const dishes = [
     ],
   },
   {
-    state: "Franche-Comté",
-    dishes: [
-      {
-        name: "Saucisse de Morteau",
-      },
-      {
-        name: "Les Fromages de Franche-Comté :",
-        desc: "principalement le Comté et le morbier.",
-      },
-      {
-        name: "La Fondue au comté",
-        desc: "dans laquelle on trempe des morceaux de pains rassis.",
-      },
-      {
-        name: "Tarte aux brimbelles",
-        desc: "pâte brisée couverte de myrtilles.",
-      },
-    ],
-  },
-  {
     state: "Ile-de-France",
     dishes: [
       {
@@ -196,7 +245,7 @@ export const dishes = [
       },
       {
         name: "Le macaron lisse",
-        desc: ": dès le 17ème siècle les officiers de bouche servaient des macarons aux Rois.",
+        desc: "dès le 17ème siècle les officiers de bouche servaient des macarons aux Rois.",
       },
       {
         name: "Le Croissant",
@@ -209,7 +258,7 @@ export const dishes = [
     ],
   },
   {
-    state: "Languedoc-Roussillon",
+    state: "Occitanie",
     dishes: [
       {
         name: "Le Cassoulet",
@@ -227,58 +276,6 @@ export const dishes = [
         name: "Le muscat de Frontignan",
         desc: "(Hérault) :  Apéritif sucré et fruité fait à base de grains de raisin gorgé de soleil.",
       },
-    ],
-  },
-  {
-    state: "Limousin",
-    desc: "La gastronomie du Limousin, moins connue que celle d'Auvergne et du Périgord, n'a pourtant rien à leur envier. Elle est articulée autour de la viande bovine, de la châtaine et des noix.",
-    dishes: [
-      {
-        name: "Le boeuf de race limousine",
-        desc: "viande très goûtue.",
-      },
-      {
-        name: "La moutarde à la violette",
-        desc: "mélange de graine de moutarde et de moût de raisin",
-      },
-      {
-        name: "La châtaigne",
-        desc: "ce fruit a apporté pendant des siècles la nourriture et la gagne pain de ses habitants. Le symbole de la région est d'ailleurs une feuille de châtaignier.",
-      },
-      {
-        name: "Le Clafoutis",
-        desc: "flan composé de cerises avec leur noyau.",
-      },
-    ],
-  },
-  {
-    state: "Lorraine",
-    dishes: [
-      {
-        name: "La Mirabelle de Lorraine",
-        desc: "savourée en tarte, confiture, eau-de-vie ou encore nature.",
-      },
-      {
-        name: "Le Munster AOC",
-        desc: "des Vosges, au goût et à l'odorat prononcé !",
-      },
-      {
-        name: "Quiche lorraine",
-        desc: "gardie de lardons.",
-      },
-      {
-        name: "Pâté lorrain",
-        desc: "qui se prépare la veille par marinade de la viande dans du vin rouge ou blanc.",
-      },
-      {
-        name: "Les Bergamotes de Nancy",
-        desc: "bonbon carré, translucide et plat parfumé à l’huile essentielle de bergamote.",
-      },
-    ],
-  },
-  {
-    state: "Midi-Pyrénées",
-    dishes: [
       {
         name: "Les volailles du Gers",
         desc: "poulets, chapons, poulardes, pintades et dindes, qui sont estampillées Label Rouge.",
@@ -296,16 +293,13 @@ export const dishes = [
       },
       {
         name: "De nombreux fromages",
-        desc: ": Roquefort, Bleu des Causses, Tomme des Pyrénées et Rocamadour.",
+        desc: "Roquefort, Bleu des Causses, Tomme des Pyrénées et Rocamadour.",
       },
     ],
   },
   {
-    state: "Nord-Pas-de-Calais",
+    state: "Hauts-de-France",
     dishes: [
-      {
-        name: "",
-      },
       {
         name: "La Carbonade Flamande",
         desc: "sorte de boeuf bourguignon dans lequel on remplace le vin par la bière.",
@@ -320,12 +314,28 @@ export const dishes = [
       },
       {
         name: "Les bières",
-        desc: ": Angelus, Grain d'Orge, Goudale, Jenlain, La Choulette, Moulin d'Ascq, ...",
+        desc: "Angelus, Grain d'Orge, Goudale, Jenlain, La Choulette, Moulin d'Ascq, ...",
+      },
+      {
+        name: "Maroilles",
+        desc: "fromage très odorant, produit dans le Nord et l'Aine.",
+      },
+      {
+        name: "Le Compiégnois",
+        desc: 'aussi appelé "dessert de Napoléon". Gâteau fait de pâte levée, coupé en tranche et intercalé des rondelles d\'ananas.',
+      },
+      {
+        name: "La Rabote",
+        desc: "pomme pelée remplie de sucre cuite dans une pâte feuilletée.",
+      },
+      {
+        name: "La crème chantilly",
+        desc: "crème fouettée sucrée.",
       },
     ],
   },
   {
-    state: "Basse-Normandie",
+    state: "Normandie",
     dishes: [
       {
         name: "L'Andouille de Vire",
@@ -342,11 +352,6 @@ export const dishes = [
       {
         name: "Omelette de la mère Poulard",
       },
-    ],
-  },
-  {
-    state: "Haute-Normandie",
-    dishes: [
       {
         name: "Le lapin au cidre",
       },
@@ -370,51 +375,11 @@ export const dishes = [
       },
       {
         name: "La fouace nantaise",
-        desc: ": pâtisserie sucrée en forme d'étoile à six branches.",
+        desc: "pâtisserie sucrée en forme d'étoile à six branches.",
       },
       {
         name: "Le Sel de Guérande",
         desc: "façonné par cinq éléments : le mer, le vent, le soleil, l'argile, et les hommes.",
-      },
-    ],
-  },
-  {
-    state: "Picardie",
-    desc: "Ces plats reflètent la tradition rurale et généreuse de la cuisine picarde, avec des ingrédients simples et locaux.",
-    dishes: [
-      {
-        name: "Maroilles",
-        desc: "fromage très odorant, produit dans le Nord et l'Aine.",
-      },
-      {
-        name: "Le Compiégnois",
-        desc: 'aussi appelé "dessert de Napoléon". Gâteau fait de pâte levée, coupé en tranche et intercalé des rondelles d\'ananas.',
-      },
-      {
-        name: "La Rabote",
-        desc: ": pomme pelée remplie de sucre cuite dans une pâte feuilletée.",
-      },
-      {
-        name: "La crème chantilly",
-        desc: ": crème fouettée sucrée.",
-      },
-    ],
-  },
-  {
-    state: "Poitou-Charentes",
-    desc: "Ces plats reflètent bien le patrimoine culinaire local, riche et ancré dans les traditions rurales.",
-    dishes: [
-      {
-        name: "Le farci poitevin",
-        desc: "sorte de pâté végétal à base de légumes (chou, épinards, poireaux), d'herbes aromatiques et parfois de viande, enveloppé dans des feuilles de chou puis cuit lentement. Il est souvent consommé froid et peut être servi en entrée ou en accompagnement.",
-      },
-      {
-        name: "Les cagouilles (ou lumas)",
-        desc: "escargots cuisinés, souvent préparés à la charentaise, mijotés avec une sauce à base de vin blanc, de persil et d'ail.",
-      },
-      {
-        name: "Le tourteau fromager",
-        desc: "un dessert typique du Poitou, fait à base de fromage de chèvre frais. Ce gâteau se caractérise par sa croûte noire (qui est volontairement brûlée) et son intérieur moelleux et légèrement acidulé.",
       },
     ],
   },
@@ -433,24 +398,6 @@ export const dishes = [
       {
         name: "La socca",
         desc: "ne grande galette à base de farine de pois chiche, d'eau, d'huile d'olive, et cuite au four sur une plaque en cuivre. Elle est souvent dégustée chaude, saupoudrée de poivre, et servie en tant que snack ou en accompagnement.",
-      },
-    ],
-  },
-  {
-    state: "Rhône-Alpes",
-    desc: "Ces spécialités mettent à l'honneur les produits montagnards, notamment les fromages, et sont souvent dégustées en hiver pour leur côté réconfortant.",
-    dishes: [
-      {
-        name: "La fondue savoyarde",
-        desc: "plat emblématique des Alpes, la fondue est un mélange de fromages fondus (très souvent du Beaufort, de l'Emmental de Savoie et du Comté), du vin blanc et parfois de l'ail. On y trempe des morceaux de pain avec une longue fourchette pour savourer cette spécialité typique des repas d’hiver.",
-      },
-      {
-        name: "Le gratin dauphinois",
-        desc: ": originaire du Dauphiné, ce gratin est préparé à base de pommes de terre finement tranchées, de crème, de lait, d'ail et cuit au four jusqu'à obtenir une texture fondante et une belle croûte dorée. Il est souvent servi en accompagnement des viandes.",
-      },
-      {
-        name: "La raclette",
-        desc: "ce plat savoyard est devenu un incontournable des repas conviviaux en montagne. La raclette consiste à faire fondre du fromage (traditionnellement de la raclette de Savoie) et à le verser sur des pommes de terre, accompagné de charcuteries et de cornichons. C’est un plat idéal après une journée de ski !",
       },
     ],
   },

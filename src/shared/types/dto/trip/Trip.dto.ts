@@ -1,3 +1,4 @@
+import { OSMResponse } from "../../osm/OSMResponse";
 import { DateString } from "../../primitives/Date";
 import { UUID } from "../../primitives/Identifier";
 import { GeoPointDto, isGeoPointDto } from "../geo/GeoPoint.dto";
@@ -9,6 +10,7 @@ export interface TripDto {
   endingPos: GeoPointDto;
   createdAt: DateString;
   steps: StepDto[];
+  osmDetails?: OSMResponse;
 }
 
 export function isTripDto(trip: any): trip is TripDto {

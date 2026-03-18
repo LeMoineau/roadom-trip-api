@@ -53,7 +53,6 @@ class TourismController {
     const sortedMonths = departementsTourism
       .filter((d) => d.departementCode === departementCode)
       .sort((a, b) => b.placeOccupancyRate - a.placeOccupancyRate);
-    console.log(sortedMonths);
     try {
       const mostAttractiveMonths = parseInt(
         sortedMonths[0].timePeriod.split("-")[1],

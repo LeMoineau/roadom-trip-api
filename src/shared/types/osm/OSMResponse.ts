@@ -13,17 +13,18 @@ export interface OSMResponse {
   name: string;
   display_name: string;
   address: {
-    road: string;
-    village: string;
-    municipality: string;
-    county: string;
+    road?: string;
+    village?: string;
+    municipality?: string;
+    county?: string;
     "ISO3166-2-lvl6"?: string;
-    state: string;
+    state?: string;
     "ISO3166-2-lvl4"?: string;
-    region: string;
-    postcode: string;
-    country: string;
-    country_code: string;
+    region?: string;
+    postcode?: string;
+    country?: string;
+    country_code?: string;
   };
   boundingbox: [string, string, string, string];
+  error?: string;
 }
