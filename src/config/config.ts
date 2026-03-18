@@ -1,5 +1,3 @@
-import openWeatherService from "../services/open-weather.service";
-
 class Config {
   getEnv() {
     return {
