@@ -27,7 +27,7 @@ class OSMService {
    * @returns OSMResponse corresponding to lat/lon coords or undefined if error during axios request
    */
   async reverse({
-    zoom = 18,
+    zoom = 17,
     format = "json",
     ...props
   }: {
@@ -47,7 +47,8 @@ class OSMService {
       })
       .then((res) => {
         if (!!!res.data || !!res.data.error) {
-          return;
+          console.warn("no data found during osm reverse", params, res);
+          return undefined;
         }
         return res.data as OSMResponse;
       })
@@ -57,12 +58,8 @@ class OSMService {
           params,
           err,
         );
-        return;
+        return undefined;
       });
-    if (!!!data || !!data.error) {
-      console.warn("error during osm reverse", params, data);
-      return;
-    }
     return data;
   }
 
@@ -89,14 +86,15 @@ class OSMService {
       })
       .then((res) => {
         if (!!!res.data || !!res.data.error) {
-          return;
+          console.warn("no data found during osm reverse", params, res);
+          return undefined;
         }
         return res.data as OSMResponse;
+      })
+      .catch((err) => {
+        console.error("error getting osm search data for input: ", params, err);
+        return undefined;
       });
-    if (!!!data || !!data.error) {
-      console.warn("error during osm search", params, data);
-      return;
-    }
     return data;
   }
 }

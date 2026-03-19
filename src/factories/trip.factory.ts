@@ -26,7 +26,7 @@ class TripFactory {
     // Generate ending pos
     let endingPos = this._getRandomPointInAllowedDistance(req);
     let osmDetails;
-    let attempts = 0;
+    let attempts = 1;
     while (!!!osmDetails && attempts < MAX_ENDING_POS_OSM_SEARCH_ATTEMPTS) {
       while (GeoUtils.isInSea(endingPos)) {
         endingPos = this._getRandomPointInAllowedDistance(req);
@@ -75,7 +75,6 @@ class TripFactory {
       distanceTrip = GeoUtils.getDistanceBetween(startingPos, endingPos);
     }
 
-    console.log("final distance: ", distanceTrip);
     return endingPos;
   }
 }

@@ -33,11 +33,14 @@ class GoogleMapsService {
   async nearbySearch(
     request: NearbySearchRequest,
   ): Promise<NearbySearchResponse | undefined> {
-    return this.instance
+    const params = {
+      ...request,
+      location: request.location.join(","),
+    };
+    return await this.instance
       .get("/place/nearbysearch/json", {
         params: {
-          ...request,
-          location: request.location.join(","),
+          ...params,
           key: this.apiKey,
         },
       })
@@ -45,16 +48,20 @@ class GoogleMapsService {
         if (!!!res.data || !!res.data.error) {
           console.error(
             "error getting nearby search data for input: ",
-            {
-              ...request,
-              location: request.location.join(","),
-              key: "**HIDDEN**",
-            },
+            params,
             res.data,
           );
           return;
         }
         return res.data as NearbySearchResponse;
+      })
+      .catch((err) => {
+        console.error(
+          "error getting google-maps nearbysearch data for input: ",
+          params,
+          err,
+        );
+        return undefined;
       });
   }
 
@@ -69,10 +76,13 @@ class GoogleMapsService {
   }: {
     placeId: string;
   }): Promise<PlaceDetailsResponse | undefined> {
-    return this.instance
+    const params = {
+      place_id: placeId,
+    };
+    return await this.instance
       .get("/place/details/json", {
         params: {
-          place_id: placeId,
+          ...params,
           key: this.apiKey,
         },
       })
@@ -80,15 +90,20 @@ class GoogleMapsService {
         if (!!!res.data || !!res.data.error) {
           console.error(
             "error getting nearby search data for input: ",
-            {
-              place_id: placeId,
-              key: "**HIDDEN**",
-            },
+            params,
             res.data,
           );
           return;
         }
         return res.data as PlaceDetailsResponse;
+      })
+      .catch((err) => {
+        console.error(
+          "error getting google-maps place details data for input: ",
+          params,
+          err,
+        );
+        return undefined;
       });
   }
 

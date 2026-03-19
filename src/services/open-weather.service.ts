@@ -47,6 +47,14 @@ class OpenWeatherService {
           return;
         }
         return res.data as OpenWeatherResponse;
+      })
+      .catch((err) => {
+        console.error(
+          "error getting open-weather forecast data for input: ",
+          params,
+          err,
+        );
+        return undefined;
       });
     if (!!!data) return;
     const wmoCode = data.current_weather.weathercode;

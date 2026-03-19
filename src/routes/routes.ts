@@ -69,10 +69,12 @@ router.get("/test", async (_: Request, res: Response) => {
   //   availableAt: new Date(),
   // });
 
-  // const hint = new CelebrityHint({
-  //   endingPoint: new GeoPoint({ lat: 49, lon: 2 }),
-  //   nearestFromPlace: "birth",
-  // });
+  const hint = new CelebrityHint({
+    endingPoint: new GeoPoint({ lat: 44, lon: 2 }),
+    nearestFromPlace: "birth",
+    availableAt: new Date(),
+  });
+  res.send(hint.toDto());
 
   // const hint = new CompassDirectionHint({
   //   startingPoint: new GeoPoint({ lat: 49, lon: 2 }),
@@ -121,11 +123,11 @@ router.get("/test", async (_: Request, res: Response) => {
   //     .join("???"),
   // });
 
-  const t = await openWeatherService.getForecast({
-    lat: 49,
-    lon: -1,
-  });
-  res.send(t);
+  // const t = await openWeatherService.getForecast({
+  //   lat: 49,
+  //   lon: -1,
+  // });
+  // res.send(t);
 });
 
 export default router;

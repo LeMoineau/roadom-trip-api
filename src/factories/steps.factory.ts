@@ -42,10 +42,10 @@ class StepsFactory {
 
     //TODO: pouvoir parametrer duree max qui peut limiter nombre de phase (par defaut 9h donc 3 phases)
     //TODO: pouvoir parametrer duree entre chaque etape (par defaut 30min)
-    this._generatePhase1(vars);
-    this._generatePhase2(vars);
-    this._generatePhase3(vars);
-    this._generatePhase4(vars);
+    await this._generatePhase1(vars);
+    await this._generatePhase2(vars);
+    await this._generatePhase3(vars);
+    await this._generatePhase4(vars);
 
     return vars.steps;
   }
@@ -59,14 +59,18 @@ class StepsFactory {
     let endingDepartement;
     let endingWikipediaPage;
     if (!!trip.osmDetails) {
+      console.debug(`trip #${trip.id}: getting departement...`);
       endingDepartement = departementsController.get({
         name: trip.osmDetails.address["ISO3166-2-lvl6"],
         libelle: trip.osmDetails.address.county,
       });
+      console.debug(`trip #${trip.id}: getting departement done`);
       if (!!trip.osmDetails.address.village) {
+        console.debug(`trip #${trip.id}: getting wikipedia page...`);
         endingWikipediaPage = await wikipediaService.getFormattedPage({
           title: trip.osmDetails.address.village,
         });
+        console.debug(`trip #${trip.id}: getting wikipedia page done`);
         if (!!endingWikipediaPage) {
           endingWikipediaPage = anonymiseWikipediaPage(
             endingWikipediaPage,
@@ -124,9 +128,11 @@ class StepsFactory {
     if (!!!vars.endingDetails?.address.village) {
       vars.logStepLack("city population hint");
     } else {
+      console.debug(`trip #${vars.trip.id}: getting city population...`);
       const population = await wikidataService.getPopulationOfCity({
         city: vars.endingDetails.address.village,
       });
+      console.debug(`trip #${vars.trip.id}: getting city population done`);
       vars.tryPushStep(
         "city population hint",
         !!population &&
@@ -225,7 +231,7 @@ class StepsFactory {
         availableAt: vars.currentTime,
       }),
     );
-    this._generateAttractionChallenge(vars);
+    await this._generateAttractionChallenge(vars);
     vars.tryPushStep(
       "precise description hint",
       !!vars.endingWikipediaPage &&
@@ -286,11 +292,17 @@ class StepsFactory {
       lat: (vars.trip.startingPos.lat + vars.trip.endingPos.lat) / 2,
       lon: (vars.trip.startingPos.lon + vars.trip.endingPos.lon) / 2,
     });
+    console.debug(
+      `trip #${vars.trip.id}: getting google maps nearby attractions...`,
+    );
     const attractions = await googleMapsService.nearbySearch({
       keyword: "attractions",
       location: [middlePoint.lat, middlePoint.lon],
       radius: 15000,
     });
+    console.debug(
+      `trip #${vars.trip.id}: getting google maps nearby attractions done`,
+    );
     vars.tryPushStep(
       "attraction challenge",
       !!attractions &&
@@ -321,9 +333,7 @@ class StepsFactory {
    * @param variables global steps variables
    * @returns void (challenge if created, is already added to steps in variables)
    */
-  async _generateStateProductChallenge(
-    vars: GlobalStepsVariables,
-  ): Promise<void> {
+  _generateStateProductChallenge(vars: GlobalStepsVariables): void {
     const celebrityHint = vars.steps.find((s) => s instanceof CelebrityHint);
     vars.tryPushStep(
       "state product challenge",

@@ -19,6 +19,11 @@ const CSV_HEADER = [
   "dpla1",
 ];
 
+/**
+ * minimal distance acceptable to select a celebrity
+ */
+const MIN_DISTANCE_ACCEPTABLE = 20;
+
 class CelebritiesController {
   celebrities: Celebrity[];
 
@@ -69,42 +74,55 @@ class CelebritiesController {
     });
   }
 
+  /**
+   * Get the celebrity who birth nearest from the targeted point.
+   *
+   * By default,
+   * @param pt
+   * @returns
+   */
   getNearestBirthPlaceOfCelebrityFrom(pt: GeoPoint): Celebrity {
     if (this.celebrities.length <= 0) {
       throw new Error("celebrities array not loaded");
     }
-    const sorted = [...this.celebrities].sort(
-      (a, b) =>
-        GeoUtils.getDistanceBetween(
-          new GeoPoint({ lat: a.bpla1, lon: a.bplo1 }),
-          pt,
-        ) -
-        GeoUtils.getDistanceBetween(
-          new GeoPoint({ lat: b.bpla1, lon: b.bplo1 }),
-          pt,
-        ),
-    );
-    return sorted[0];
+    let minDistance = Infinity;
+    let nearestCelebrity = this.celebrities[0];
+    for (let celeb of this.celebrities) {
+      const distance = GeoUtils.getDistanceBetween(
+        { lat: celeb.bpla1, lon: celeb.bplo1 } as GeoPoint,
+        pt,
+      );
+      if (distance < minDistance) {
+        if (minDistance <= MIN_DISTANCE_ACCEPTABLE) {
+          return celeb;
+        }
+        minDistance = distance;
+        nearestCelebrity = celeb;
+      }
+    }
+    return nearestCelebrity;
   }
 
   getNearestDeathPlaceOfCelebrityFrom(pt: GeoPoint): Celebrity {
     if (this.celebrities.length <= 0) {
       throw new Error("celebrities array not loaded");
     }
-    const sorted = [...this.celebrities]
-      .filter((c) => !!c.dpla1 && !!c.dplo1)
-      .sort(
-        (a, b) =>
-          GeoUtils.getDistanceBetween(
-            new GeoPoint({ lat: a.dpla1!, lon: a.dplo1! }),
-            pt,
-          ) -
-          GeoUtils.getDistanceBetween(
-            new GeoPoint({ lat: b.dpla1!, lon: b.dplo1! }),
-            pt,
-          ),
+    let minDistance = Infinity;
+    let nearestCelebrity = this.celebrities[0];
+    for (let celeb of this.celebrities) {
+      const distance = GeoUtils.getDistanceBetween(
+        { lat: celeb.dpla1, lon: celeb.dplo1 } as GeoPoint,
+        pt,
       );
-    return sorted[0];
+      if (distance < minDistance) {
+        if (minDistance <= MIN_DISTANCE_ACCEPTABLE) {
+          return celeb;
+        }
+        minDistance = distance;
+        nearestCelebrity = celeb;
+      }
+    }
+    return nearestCelebrity;
   }
 }
 
