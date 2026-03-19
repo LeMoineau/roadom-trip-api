@@ -12,7 +12,7 @@ export class Trip {
   endingPos: GeoPoint;
   createdAt: Date;
   steps: Step[];
-  osmDetails?: OSMResponse;
+  osmEndingDetails?: OSMResponse;
 
   constructor({
     startingPos,
@@ -20,14 +20,14 @@ export class Trip {
     id = uuidv4(),
     createdAt = new Date(),
     steps = [],
-    osmDetails,
+    osmEndingDetails,
   }: {
     startingPos: GeoPointDto;
     endingPos: GeoPointDto;
     id?: UUID;
     createdAt?: Date | string;
     steps?: Step[];
-    osmDetails?: OSMResponse;
+    osmEndingDetails?: OSMResponse;
   }) {
     this.id = id;
     this.startingPos = new GeoPoint(startingPos);
@@ -42,7 +42,7 @@ export class Trip {
       this.createdAt = createdAt;
     }
     this.steps = steps;
-    this.osmDetails = osmDetails;
+    this.osmEndingDetails = osmEndingDetails;
   }
 
   toDto(): TripDto {
@@ -52,7 +52,7 @@ export class Trip {
       endingPos: this.endingPos.toDto(),
       createdAt: this.createdAt.toString(),
       steps: this.steps.map((s) => s.toDto()),
-      osmDetails: this.osmDetails,
+      osmEndingDetails: this.osmEndingDetails,
     };
   }
 }

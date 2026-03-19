@@ -10,7 +10,7 @@ export interface TripDto {
   endingPos: GeoPointDto;
   createdAt: DateString;
   steps: StepDto[];
-  osmDetails?: OSMResponse;
+  osmEndingDetails?: OSMResponse;
 }
 
 export function isTripDto(trip: any): trip is TripDto {

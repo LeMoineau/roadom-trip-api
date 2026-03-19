@@ -17,7 +17,6 @@ import { StateProductChallenge } from "../models/challenges/StateProductChalleng
 import { DepartementHint } from "../models/hints/DepartementHint.model";
 import { TourismHint } from "../models/hints/TourismHint.model";
 import { CompassDirectionHint } from "../models/hints/CompassDirectionHint.model";
-import osmService from "../services/osm.service";
 import departementsController from "../controllers/departements.controller";
 import googleMapsService from "../services/google-maps.service";
 import { GeoPoint } from "../shared/models/GeoPoint.model";
@@ -30,6 +29,7 @@ import { PreciseDescriptionHint } from "../models/hints/PreciseDescriptionHint.m
 import { RebusHint } from "../models/hints/RebusHint.model";
 import { ChangeWheelChallenge } from "../models/challenges/ChangeWheelChallenge.model";
 import { PushCarChallenge } from "../models/challenges/PushCarChallenge.model";
+import { ProximityNotification } from "../shared/models/ProximityNotification.model";
 
 class StepsFactory {
   /**
@@ -58,23 +58,23 @@ class StepsFactory {
   async _calculateGlobalVariables(trip: Trip): Promise<GlobalStepsVariables> {
     let endingDepartement;
     let endingWikipediaPage;
-    if (!!trip.osmDetails) {
+    if (!!trip.osmEndingDetails) {
       console.debug(`trip #${trip.id}: getting departement...`);
       endingDepartement = departementsController.get({
-        name: trip.osmDetails.address["ISO3166-2-lvl6"],
-        libelle: trip.osmDetails.address.county,
+        name: trip.osmEndingDetails.address["ISO3166-2-lvl6"],
+        libelle: trip.osmEndingDetails.address.county,
       });
       console.debug(`trip #${trip.id}: getting departement done`);
-      if (!!trip.osmDetails.address.village) {
+      if (!!trip.osmEndingDetails.address.village) {
         console.debug(`trip #${trip.id}: getting wikipedia page...`);
         endingWikipediaPage = await wikipediaService.getFormattedPage({
-          title: trip.osmDetails.address.village,
+          title: trip.osmEndingDetails.address.village,
         });
         console.debug(`trip #${trip.id}: getting wikipedia page done`);
         if (!!endingWikipediaPage) {
           endingWikipediaPage = anonymiseWikipediaPage(
             endingWikipediaPage,
-            trip.osmDetails.address.village,
+            trip.osmEndingDetails.address.village,
           );
         }
       }
@@ -99,6 +99,10 @@ class StepsFactory {
    * @param variables global steps variables
    */
   async _generatePhase1(vars: GlobalStepsVariables) {
+    vars.pushStep(
+      new ProximityNotification({ range: 400, availableAt: vars.currentTime }),
+      { dontIncrementCurrentTime: true },
+    );
     vars.pushStep(
       new HGBDHint({
         startingPos: vars.trip.startingPos,
@@ -161,6 +165,10 @@ class StepsFactory {
    * @param variables global steps variables
    */
   async _generatePhase2(vars: GlobalStepsVariables) {
+    vars.pushStep(
+      new ProximityNotification({ range: 100, availableAt: vars.currentTime }),
+      { dontIncrementCurrentTime: true },
+    );
     vars.tryPushStep(
       "state hint",
       !!vars.endingDetails?.address.state &&
@@ -217,6 +225,10 @@ class StepsFactory {
    * @param variables global steps variables
    */
   async _generatePhase3(vars: GlobalStepsVariables) {
+    vars.pushStep(
+      new ProximityNotification({ range: 10, availableAt: vars.currentTime }),
+      { dontIncrementCurrentTime: true },
+    );
     vars.tryPushStep(
       "departement hint",
       !!vars.endingDepartement &&
@@ -261,6 +273,10 @@ class StepsFactory {
    * @param variables global steps variables
    */
   async _generatePhase4(vars: GlobalStepsVariables) {
+    vars.pushStep(
+      new ProximityNotification({ range: 2, availableAt: vars.currentTime }),
+      { dontIncrementCurrentTime: true },
+    );
     this._generateNearCityHint(vars);
     vars.pushStep(
       new FuelStopChallenge({

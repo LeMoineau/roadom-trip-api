@@ -25,19 +25,25 @@ class TripFactory {
 
     // Generate ending pos
     let endingPos = this._getRandomPointInAllowedDistance(req);
-    let osmDetails;
+    let osmEndingDetails;
     let attempts = 1;
-    while (!!!osmDetails && attempts < MAX_ENDING_POS_OSM_SEARCH_ATTEMPTS) {
+    while (
+      !!!osmEndingDetails &&
+      attempts < MAX_ENDING_POS_OSM_SEARCH_ATTEMPTS
+    ) {
       while (GeoUtils.isInSea(endingPos)) {
         endingPos = this._getRandomPointInAllowedDistance(req);
       }
-      osmDetails = await osmService.reverse({
+      osmEndingDetails = await osmService.reverse({
         lat: endingPos.lat,
         lon: endingPos.lon,
       });
-      if (!!!req.allowNoInformationsEnding && !!!osmDetails?.address.village) {
+      if (
+        !!!req.allowNoInformationsEnding &&
+        !!!osmEndingDetails?.address.village
+      ) {
         attempts++;
-        osmDetails = undefined;
+        osmEndingDetails = undefined;
         endingPos = this._getRandomPointInAllowedDistance(req);
       }
     }
@@ -52,7 +58,7 @@ class TripFactory {
       startingPos: { label: DEFAULT_STARTING_POS_LABEL, ...req.startingPos },
       endingPos: endingPos.toDto(),
       createdAt: new Date(),
-      osmDetails,
+      osmEndingDetails,
     });
 
     // Generate trip steps

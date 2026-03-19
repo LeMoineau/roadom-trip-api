@@ -35,21 +35,27 @@ export class GlobalStepsVariables {
     this.trip = trip;
     this.steps = [];
     this.currentTime = currentTime ?? new Date();
-    this.endingDetails = trip.osmDetails;
+    this.endingDetails = trip.osmEndingDetails;
     this.endingDepartement = endingDepartement;
     this.endingWikipediaPage = endingWikipediaPage;
   }
 
-  pushStep(step: Step) {
+  pushStep(step: Step, props?: { dontIncrementCurrentTime?: boolean }) {
     this.steps.push(step);
-    this.incrementCurrentTime();
+    if (!!!props?.dontIncrementCurrentTime) this.incrementCurrentTime();
   }
 
-  tryPushStep(stepName: string, step?: Step | false) {
+  tryPushStep(
+    stepName: string,
+    step?: Step | false,
+    props?: { dontIncrementCurrentTime?: boolean },
+  ) {
     if (!!!step) {
       this.logStepLack(stepName);
     } else {
-      this.pushStep(step);
+      this.pushStep(step, {
+        dontIncrementCurrentTime: props?.dontIncrementCurrentTime,
+      });
     }
   }
 
