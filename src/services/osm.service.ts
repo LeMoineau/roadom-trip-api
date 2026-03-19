@@ -15,7 +15,7 @@ class OSMService {
     this.instance = axios.create({
       baseURL: this.baseURL,
       headers: {
-        "User-Agent": "roadom-trip-api/1.0 (faberbastian@gmail.com)",
+        "User-Agent": "roadom-trip-api/1.0 (ctop.x2@gmail.com)",
       },
     });
   }

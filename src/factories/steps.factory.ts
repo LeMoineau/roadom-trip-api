@@ -274,7 +274,7 @@ class StepsFactory {
    */
   async _generatePhase4(vars: GlobalStepsVariables) {
     vars.pushStep(
-      new ProximityNotification({ range: 2, availableAt: vars.currentTime }),
+      new ProximityNotification({ range: 1, availableAt: vars.currentTime }),
       { dontIncrementCurrentTime: true },
     );
     this._generateNearCityHint(vars);
