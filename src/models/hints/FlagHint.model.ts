@@ -1,5 +1,5 @@
 import flagsController from "../../controllers/flags.controller";
-import { Hint } from "../../shared/models/Hint.model";
+import { Hint } from "../primitives/Hint.model";
 import { FlagHintDto } from "../../shared/types/dto/hints/FlagHint.dto";
 import { HintDto } from "../../shared/types/dto/hints/Hint.dto";
 import { DepartementCode } from "../../shared/types/geo/Departement";

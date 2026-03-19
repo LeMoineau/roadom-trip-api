@@ -1,7 +1,7 @@
 import { GeoUtils } from "../shared/utils/geo.utils";
 import { GeoPoint } from "../shared/models/GeoPoint.model";
 import { CreatingTripRequest } from "../shared/types/dto/trip/CreatingTripRequest";
-import { Trip } from "../shared/models/Trip.model";
+import { Trip } from "../models/primitives/Trip.model";
 import stepsFactory from "./steps.factory";
 import osmService from "../services/osm.service";
 import { v4 as uuidv4 } from "uuid";

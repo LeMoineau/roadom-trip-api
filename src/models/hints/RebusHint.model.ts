@@ -1,4 +1,4 @@
-import { Hint, HintProps } from "../../shared/models/Hint.model";
+import { Hint, HintProps } from "../primitives/Hint.model";
 import { RebusHintDto } from "../../shared/types/dto/hints/RebusHint.dto";
 import { toRebus } from "rebus-fr";
 import { WikipediaFormattedPage } from "../../shared/types/wikipedia/Wikipedia";

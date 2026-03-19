@@ -1,5 +1,5 @@
 import { GeoPoint } from "../../shared/models/GeoPoint.model";
-import { Hint, HintProps } from "../../shared/models/Hint.model";
+import { Hint, HintProps } from "../primitives/Hint.model";
 import {
   CompassDirectionHintDto,
   CompassDirectionHintMethod,

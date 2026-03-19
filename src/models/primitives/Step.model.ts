@@ -1,4 +1,4 @@
-import { StepDto } from "../types/dto/Step.dto";
+import { StepDto } from "../../shared/types/dto/Step.dto";
 
 export interface StepProps {
   availableAt: Date;
@@ -20,6 +20,7 @@ export class Step {
    */
   toDto(): StepDto {
     return {
+      type: "unknown",
       availableAt: this.availableAt,
       reach: this.reach,
     };

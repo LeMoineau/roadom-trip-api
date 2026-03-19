@@ -1,4 +1,4 @@
-import { Challenge, ChallengeProps } from "../../shared/models/Challenge.model";
+import { Challenge, ChallengeProps } from "../primitives/Challenge.model";
 import { AttractionChallengeDto } from "../../shared/types/dto/challenges/AttractionChallenge.dto";
 import { MediumHintDto } from "../../shared/types/dto/rewards/Reward";
 import { GoogleMapsPlace } from "../../shared/types/google-maps/GoogleMapsPlace";

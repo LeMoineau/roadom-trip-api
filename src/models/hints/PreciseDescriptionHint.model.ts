@@ -1,4 +1,4 @@
-import { Hint, HintProps } from "../../shared/models/Hint.model";
+import { Hint, HintProps } from "../primitives/Hint.model";
 import { PreciseDescriptionHintDto } from "../../shared/types/dto/hints/PreciseDescriptionHint.dto";
 import { WikipediaFormattedPage } from "../../shared/types/wikipedia/Wikipedia";
 

@@ -1,4 +1,4 @@
-import { HintDto } from "../types/dto/hints/Hint.dto";
+import { HintDto } from "../../shared/types/dto/hints/Hint.dto";
 import { Step, StepProps } from "./Step.model";
 
 export interface HintProps extends StepProps {}

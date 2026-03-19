@@ -1,6 +1,6 @@
 import { departements } from "../../constants/departements";
 import tourismController from "../../controllers/tourism.controller";
-import { Hint, HintProps } from "../../shared/models/Hint.model";
+import { Hint, HintProps } from "../primitives/Hint.model";
 import {
   TourismHintDto,
   ToursimHintMethodGenerationMessage,

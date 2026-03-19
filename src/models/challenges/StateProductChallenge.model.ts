@@ -1,4 +1,4 @@
-import { Challenge, ChallengeProps } from "../../shared/models/Challenge.model";
+import { Challenge, ChallengeProps } from "../primitives/Challenge.model";
 import { StateProductChallengeDto } from "../../shared/types/dto/challenges/StateProductChallenge.dto";
 import { StrongHintDto } from "../../shared/types/dto/rewards/Reward";
 

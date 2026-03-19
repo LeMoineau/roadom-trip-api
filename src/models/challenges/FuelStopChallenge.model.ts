@@ -1,4 +1,4 @@
-import { Challenge, ChallengeProps } from "../../shared/models/Challenge.model";
+import { Challenge, ChallengeProps } from "../primitives/Challenge.model";
 import { FuelStopChallengeDto } from "../../shared/types/dto/challenges/FuelStopChallenge.dto";
 
 export class FuelStopChallenge extends Challenge {

@@ -1,4 +1,4 @@
-import { Hint, HintProps } from "../../shared/models/Hint.model";
+import { Hint, HintProps } from "../primitives/Hint.model";
 import { StateHintDto } from "../../shared/types/dto/hints/StateHint.dto";
 
 export class StateHint extends Hint {

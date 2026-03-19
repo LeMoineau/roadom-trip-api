@@ -1,4 +1,4 @@
-import { ProximityNotificationDto } from "../types/dto/notifications/ProximityNotification.dto";
+import { ProximityNotificationDto } from "../../shared/types/dto/notifications/ProximityNotification.dto";
 import { Step, StepProps } from "./Step.model";
 
 export interface ProximityNotificationProps extends StepProps {

@@ -1,4 +1,4 @@
-import { Challenge, ChallengeProps } from "../../shared/models/Challenge.model";
+import { Challenge, ChallengeProps } from "../primitives/Challenge.model";
 import { ChangeWheelChallengeDto } from "../../shared/types/dto/challenges/ChangeWheelChallenge.dto";
 
 export class ChangeWheelChallenge extends Challenge {

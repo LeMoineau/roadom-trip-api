@@ -2,7 +2,7 @@ import { Climat } from "../../shared/types/geo/Climat";
 import { DepartementCode } from "../../shared/types/geo/Departement";
 import climatsController from "../../controllers/climats.controller";
 import { Shoes } from "../../shared/types/metier/Shoes";
-import { Hint, HintProps } from "../../shared/models/Hint.model";
+import { Hint, HintProps } from "../primitives/Hint.model";
 import { ShoesHintDto } from "../../shared/types/dto/hints/ShoesHint.dto";
 
 const DEFAULT_SHOES: Shoes = "Chaussures de sport";

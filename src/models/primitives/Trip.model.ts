@@ -1,10 +1,10 @@
-import { GeoPointDto } from "../types/dto/geo/GeoPoint.dto";
-import { TripDto } from "../types/dto/trip/Trip.dto";
-import { UUID } from "../types/primitives/Identifier";
-import { GeoPoint } from "./GeoPoint.model";
+import { GeoPointDto } from "../../shared/types/dto/geo/GeoPoint.dto";
+import { TripDto } from "../../shared/types/dto/trip/Trip.dto";
+import { UUID } from "../../shared/types/primitives/Identifier";
+import { GeoPoint } from "../../shared/models/GeoPoint.model";
 import { v4 as uuidv4 } from "uuid";
 import { Step } from "./Step.model";
-import { OSMResponse } from "../types/osm/OSMResponse";
+import { OSMResponse } from "../../shared/types/osm/OSMResponse";
 
 export class Trip {
   id: UUID;

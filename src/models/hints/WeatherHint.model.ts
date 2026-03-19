@@ -1,4 +1,4 @@
-import { Hint, HintProps } from "../../shared/models/Hint.model";
+import { Hint, HintProps } from "../primitives/Hint.model";
 import { WeatherHintDto } from "../../shared/types/dto/hints/WeatherHint.dto";
 import { OpenWeatherFormattedResponse } from "../../shared/types/open-weather/OpenWeather";
 

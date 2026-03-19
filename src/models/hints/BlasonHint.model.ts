@@ -1,5 +1,5 @@
 import blasonsController from "../../controllers/blasons.controller";
-import { Hint, HintProps } from "../../shared/models/Hint.model";
+import { Hint, HintProps } from "../primitives/Hint.model";
 import { BlasonHintDto } from "../../shared/types/dto/hints/BlasonHint.dto";
 import { DepartementCode } from "../../shared/types/geo/Departement";
 

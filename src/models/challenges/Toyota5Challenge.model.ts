@@ -1,4 +1,4 @@
-import { Challenge, ChallengeProps } from "../../shared/models/Challenge.model";
+import { Challenge, ChallengeProps } from "../primitives/Challenge.model";
 import { Toyota5ChallengeDto } from "../../shared/types/dto/challenges/Toyota5Challenge.dto";
 
 export class Toyota5Challenge extends Challenge {

@@ -1,5 +1,5 @@
 import { Dish } from "../../shared/types/metier/Dish";
-import { Hint, HintProps } from "../../shared/models/Hint.model";
+import { Hint, HintProps } from "../primitives/Hint.model";
 import dishesController from "../../controllers/dishes.controller";
 import { DishHintDto } from "../../shared/types/dto/hints/DishHint.dto";
 

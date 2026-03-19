@@ -1,4 +1,4 @@
-import { Hint, HintProps } from "../../shared/models/Hint.model";
+import { Hint, HintProps } from "../primitives/Hint.model";
 import { NearCityHintDto } from "../../shared/types/dto/hints/NearCityHint.dto";
 
 export class NearCityHint extends Hint {

@@ -1,5 +1,5 @@
-import { Step } from "../shared/models/Step.model";
-import { Trip } from "../shared/models/Trip.model";
+import { Step } from "../models/primitives/Step.model";
+import { Trip } from "../models/primitives/Trip.model";
 import { HGBDHint } from "../models/hints/HGBDHint.model";
 import { ShoesHint } from "../models/hints/ShoesHint.model";
 import { NoseChallenge } from "../models/challenges/NoseChallenge.model";
@@ -29,7 +29,7 @@ import { PreciseDescriptionHint } from "../models/hints/PreciseDescriptionHint.m
 import { RebusHint } from "../models/hints/RebusHint.model";
 import { ChangeWheelChallenge } from "../models/challenges/ChangeWheelChallenge.model";
 import { PushCarChallenge } from "../models/challenges/PushCarChallenge.model";
-import { ProximityNotification } from "../shared/models/ProximityNotification.model";
+import { ProximityNotification } from "../models/primitives/ProximityNotification.model";
 
 class StepsFactory {
   /**

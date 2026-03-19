@@ -1,4 +1,4 @@
-import { ChallengeDto } from "../types/dto/challenges/Challenge.dto";
+import { ChallengeDto } from "../../shared/types/dto/challenges/Challenge.dto";
 import { Step, StepProps } from "./Step.model";
 
 export interface ChallengeProps extends StepProps {}
