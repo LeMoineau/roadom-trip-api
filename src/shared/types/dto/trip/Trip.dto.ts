@@ -3,6 +3,7 @@ import { DateString } from "../../primitives/Date";
 import { UUID } from "../../primitives/Identifier";
 import { GeoPointDto, isGeoPointDto } from "../geo/GeoPoint.dto";
 import { StepDto } from "./../Step.dto";
+import { TripStatus } from "./TripStatus";
 
 export interface TripDto {
   id: UUID;
@@ -11,6 +12,8 @@ export interface TripDto {
   createdAt: DateString;
   steps: StepDto[];
   osmEndingDetails?: OSMResponse;
+  status: TripStatus;
+  personAskingAvailable?: number;
 }
 
 export function isTripDto(trip: any): trip is TripDto {

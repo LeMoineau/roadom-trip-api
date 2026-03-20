@@ -5,6 +5,7 @@ import { GeoPoint } from "../../shared/models/GeoPoint.model";
 import { v4 as uuidv4 } from "uuid";
 import { Step } from "./Step.model";
 import { OSMResponse } from "../../shared/types/osm/OSMResponse";
+import { TripStatus } from "../../shared/types/dto/trip/TripStatus";
 
 export class Trip {
   id: UUID;
@@ -13,6 +14,8 @@ export class Trip {
   createdAt: Date;
   steps: Step[];
   osmEndingDetails?: OSMResponse;
+  status: TripStatus;
+  personAskingAvailable?: number;
 
   constructor({
     startingPos,
@@ -21,6 +24,8 @@ export class Trip {
     createdAt = new Date(),
     steps = [],
     osmEndingDetails,
+    status = "new",
+    personAskingAvailable,
   }: {
     startingPos: GeoPointDto;
     endingPos: GeoPointDto;
@@ -28,6 +33,8 @@ export class Trip {
     createdAt?: Date | string;
     steps?: Step[];
     osmEndingDetails?: OSMResponse;
+    status?: TripStatus;
+    personAskingAvailable?: number;
   }) {
     this.id = id;
     this.startingPos = new GeoPoint(startingPos);
@@ -43,6 +50,8 @@ export class Trip {
     }
     this.steps = steps;
     this.osmEndingDetails = osmEndingDetails;
+    this.status = status;
+    this.personAskingAvailable = personAskingAvailable;
   }
 
   toDto(): TripDto {
@@ -53,6 +62,8 @@ export class Trip {
       createdAt: this.createdAt.toString(),
       steps: this.steps.map((s) => s.toDto()),
       osmEndingDetails: this.osmEndingDetails,
+      status: this.status,
+      personAskingAvailable: this.personAskingAvailable,
     };
   }
 }

@@ -1,8 +1,8 @@
-import { GeoPoint } from "../models/GeoPoint.model";
 import { MathUtils } from "./math.utils";
 import * as geolib from "geolib";
 import seaGeoMap from "@geo-maps/earth-seas-10m";
 import GeoJsonLookup from "geojson-geometries-lookup";
+import { GeoPoint } from "../models/GeoPoint.model";
 
 // Loading the sea map
 const seaMap = new GeoJsonLookup(seaGeoMap);

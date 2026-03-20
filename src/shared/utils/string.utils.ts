@@ -17,4 +17,15 @@ export namespace StringUtils {
     }
     return (toTheLeft + targetNb).slice(-maxLength);
   }
+
+  /**
+   * Put first letter of a string to uppercase
+   *
+   * Exemple: test -> Test
+   * @param str targeted string
+   * @return well formatted string
+   */
+  export function wellFormatted(str: string): string {
+    return str.substring(0, 1).toUpperCase() + str.substring(1, str.length);
+  }
 }
