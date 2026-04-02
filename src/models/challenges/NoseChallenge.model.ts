@@ -18,7 +18,7 @@ export class NoseChallenge extends Challenge {
   }
 
   _generateMessage() {
-    return `Appuie sur le ${this.variants === "nose" ? "nez" : "chapeau"} toutes à chaque fois que les heures et les minutes indiquent le même nombre pour avoir le droit de parler à 1 personne !`;
+    return `Appuie sur le ${this.variants === "nose" ? "nez" : "chapeau"} à chaque fois que les heures et les minutes indiquent le même nombre pour avoir le droit de parler à 1 personne !`;
   }
 
   toDto(): NoseChallengeDto {
