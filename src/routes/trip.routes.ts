@@ -17,6 +17,40 @@ tripRouter.get("/:id", async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * @swagger
+ * /trips:
+ *   post:
+ *     summary: Créer un nouveau road-trip
+ *     description: Retourne le nouveau road-trip créé
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreatingTripRequest'
+ *     responses:
+ *       201:
+ *         description: Road-trip créé
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/TripDto'
+ *       400:
+ *         description: Paramètres incorrects
+ *         content:
+ *           text/html:
+ *             schema:
+ *               type: string
+ *               example: "Wrong parameters: Body needs to be a creating trip request"
+ *       500:
+ *         description: Erreur interne lors de la création du road-trip
+ *         content:
+ *           text/html:
+ *             schema:
+ *               type: string
+ *               example: "Error creating trip: <l'erreur en question>"
+ */
 tripRouter.post("/", async (req: Request, res: Response) => {
   try {
     if (!req.body) {
@@ -32,7 +66,7 @@ tripRouter.post("/", async (req: Request, res: Response) => {
     }
     const tripRequest: CreatingTripRequest = req.body;
     try {
-      res.send((await tripFactory.create(tripRequest)).toDto());
+      res.status(201).send((await tripFactory.create(tripRequest)).toDto());
     } catch (err) {
       console.error(err);
       res.status(500).send(`Error creating trip: ${err}`);
