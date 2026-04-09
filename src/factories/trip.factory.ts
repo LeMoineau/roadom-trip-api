@@ -38,10 +38,10 @@ class TripFactory {
         lat: endingPos.lat,
         lon: endingPos.lon,
       });
-      if (
-        !!!req.allowNoInformationsEnding &&
-        !!!osmEndingDetails?.address.village
-      ) {
+      if (!!req.allowNoInformationsEnding) {
+        break;
+      }
+      if (!!!osmEndingDetails?.address.village) {
         attempts++;
         osmEndingDetails = undefined;
         endingPos = this._getRandomPointInAllowedDistance(req);

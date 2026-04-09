@@ -66,6 +66,7 @@ class WikidataService {
       });
     if (!!!data || Object.keys(data.entities).length <= 0) return;
     const entity = Object.values(data.entities)[0];
+    if (!!!entity.claims) return;
     const targetClaims = entity.claims[property];
     if (!!!targetClaims) return;
     const res = targetClaims.find((c) => c.rank === "preferred");
