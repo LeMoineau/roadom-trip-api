@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Step } from "./Step.model";
 import { OSMResponse } from "../../shared/types/osm/OSMResponse";
 import { TripStatus } from "../../shared/types/dto/trip/TripStatus";
+import { TripRoute } from "../../shared/types/dto/trip/TripRoute";
 
 export class Trip {
   id: UUID;
@@ -16,6 +17,7 @@ export class Trip {
   osmEndingDetails?: OSMResponse;
   status: TripStatus;
   personAskingAvailable?: number;
+  route?: TripRoute;
 
   constructor({
     startingPos,
@@ -26,6 +28,7 @@ export class Trip {
     osmEndingDetails,
     status = "new",
     personAskingAvailable,
+    route,
   }: {
     startingPos: GeoPointDto;
     endingPos: GeoPointDto;
@@ -35,6 +38,7 @@ export class Trip {
     osmEndingDetails?: OSMResponse;
     status?: TripStatus;
     personAskingAvailable?: number;
+    route?: TripRoute;
   }) {
     this.id = id;
     this.startingPos = new GeoPoint(startingPos);
@@ -52,6 +56,7 @@ export class Trip {
     this.osmEndingDetails = osmEndingDetails;
     this.status = status;
     this.personAskingAvailable = personAskingAvailable;
+    this.route = route;
   }
 
   toDto(): TripDto {
@@ -64,6 +69,7 @@ export class Trip {
       osmEndingDetails: this.osmEndingDetails,
       status: this.status,
       personAskingAvailable: this.personAskingAvailable,
+      route: this.route,
     };
   }
 }

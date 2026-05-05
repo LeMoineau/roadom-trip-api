@@ -16,6 +16,7 @@ import { AttractionChallenge } from "../models/challenges/AttractionChallenge.mo
 import wikidataService from "../services/wikidata.service";
 import wikipediaService from "../services/wikipedia.service";
 import openWeatherService from "../services/open-weather.service";
+import osrmService from "../services/osrm.service";
 
 const router = Router();
 
@@ -69,12 +70,12 @@ router.get("/test", async (_: Request, res: Response) => {
   //   availableAt: new Date(),
   // });
 
-  const hint = new CelebrityHint({
-    endingPoint: new GeoPoint({ lat: 44, lon: 2 }),
-    nearestFromPlace: "birth",
-    availableAt: new Date(),
-  });
-  res.send(hint.toDto());
+  // const hint = new CelebrityHint({
+  //   endingPoint: new GeoPoint({ lat: 44, lon: 2 }),
+  //   nearestFromPlace: "birth",
+  //   availableAt: new Date(),
+  // });
+  // res.send(hint.toDto());
 
   // const hint = new CompassDirectionHint({
   //   startingPoint: new GeoPoint({ lat: 49, lon: 2 }),
@@ -128,6 +129,18 @@ router.get("/test", async (_: Request, res: Response) => {
   //   lon: -1,
   // });
   // res.send(t);
+
+  // const routemaps = await googleMapsService.getRoute({
+  //   origin: [48.1284314, -1.7529403],
+  //   destination: [48.382117, -0.712761],
+  // });
+  // res.json(route);
+
+  const route = await osrmService.getRoute({
+    origin: [48.1284314, -1.7529403],
+    destination: [48.382117, -0.712761],
+  });
+  res.json(route);
 });
 
 export default router;

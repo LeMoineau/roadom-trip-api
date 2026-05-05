@@ -3,6 +3,15 @@ import { NearbySearchRequest } from "../shared/types/google-maps/NearbySearchReq
 import { NearbySearchResponse } from "../shared/types/google-maps/NearbySearchResponse";
 import config from "../config/config";
 import { PlaceDetailsResponse } from "../shared/types/google-maps/PlaceDetailsResponse";
+import {
+  Client,
+  DirectionsRoute,
+  Language,
+  TravelMode,
+} from "@googlemaps/google-maps-services-js";
+import { RouteRequest } from "../shared/types/google-maps/RouteRequest";
+
+//TODO: refactor with @googlemaps client methods & types
 
 /**
  * Google Maps API (mostly Place API)
@@ -12,6 +21,7 @@ class GoogleMapsService {
   baseURL: string;
   apiKey: string;
   instance: AxiosInstance;
+  client;
 
   constructor() {
     this.baseURL = config.getEnv().googleMapsApiURL;
@@ -22,6 +32,7 @@ class GoogleMapsService {
         "User-Agent": "roadom-trip-api/1.0 (ctop.x2@gmail.com)",
       },
     });
+    this.client = new Client({ axiosInstance: this.instance });
   }
 
   /**
@@ -114,6 +125,43 @@ class GoogleMapsService {
    */
   getUrlFromPlaceId(placeId: string): string {
     return `https://www.google.com/maps/place/?q=place_id:${placeId}`;
+  }
+
+  async getRoute({
+    ...params
+  }: RouteRequest): Promise<DirectionsRoute | undefined> {
+    try {
+      const response = await this.client.directions({
+        params: {
+          ...params,
+          mode: TravelMode.driving, // Modes possibles : 'driving', 'walking', 'bicycling', 'transit'
+          language: Language.fr,
+          key: this.apiKey,
+        },
+        timeout: 1000, // Optionnel
+      });
+
+      if (response.data.status === "OK") {
+        // Le premier itinéraire [0] est l'itinéraire conseillé
+        const route = response.data.routes[0];
+
+        console.log(`Itinéraire : ${route.summary}`);
+        console.log(`Distance : ${route.legs[0].distance.text}`);
+        console.log(`Durée estimée : ${route.legs[0].duration.text}`);
+
+        // Affichage des étapes (instructions)
+        route.legs[0].steps.forEach((step, index) => {
+          console.log(
+            `${index + 1}. ${step.html_instructions.replace(/<[^>]*>?/gm, "")}`,
+          );
+        });
+        return route;
+      } else {
+        console.error("Erreur API : " + response.data.status);
+      }
+    } catch (err: any) {
+      console.error("Erreur de connexion : ", err.message);
+    }
   }
 }
 

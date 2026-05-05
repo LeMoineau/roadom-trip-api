@@ -5,6 +5,10 @@ import { Trip } from "../models/primitives/Trip.model";
 import stepsFactory from "./steps.factory";
 import osmService from "../services/osm.service";
 import { v4 as uuidv4 } from "uuid";
+import { TripRoute } from "../shared/types/dto/trip/TripRoute";
+import { GeoPointDto } from "../shared/types/dto/geo/GeoPoint.dto";
+import osrmService from "../services/osrm.service";
+import googleMapsService from "../services/google-maps.service";
 
 const DEFAULT_STARTING_POS_LABEL = "Point de départ";
 const DEFAULT_ENDING_POS_LABEL = "Destination";
@@ -59,12 +63,41 @@ class TripFactory {
       endingPos: endingPos.toDto(),
       createdAt: new Date(),
       osmEndingDetails,
+      route: await this._generateTripRoute(req.startingPos, endingPos),
     });
 
     // Generate trip steps
     trip.steps = await stepsFactory.create(trip);
     console.debug(`trip #${tripId}: generation done!`);
     return trip;
+  }
+
+  async _generateTripRoute(
+    startingPos: GeoPointDto,
+    endingPos: GeoPointDto,
+  ): Promise<TripRoute | undefined> {
+    const origin: [number, number] = [startingPos.lat, startingPos.lon];
+    const destination: [number, number] = [endingPos.lat, endingPos.lon];
+    const route = await osrmService.getRoute({
+      origin,
+      destination,
+    });
+    if (!!route) {
+      return {
+        source: "osrm",
+        route,
+      };
+    }
+    const mapsRoute = await googleMapsService.getRoute({
+      origin,
+      destination,
+    });
+    if (!!mapsRoute) {
+      return {
+        source: "google-maps",
+        route: mapsRoute,
+      };
+    }
   }
 
   _getRandomPointInAllowedDistance(req: CreatingTripRequest): GeoPoint {

@@ -8,6 +8,7 @@ class Config {
       wikidataApiURL: process.env["WIKIDATA_API_URL"]!,
       wikipediaApiURL: process.env["WIKIPEDIA_API_URL"]!,
       openWeatherApiURL: process.env["OPEN_WEATHER_API_URL"]!,
+      osrmApiURL: process.env["OSRM_API_URL"]!,
     };
   }
 }

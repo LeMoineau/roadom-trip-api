@@ -35,4 +35,34 @@ export namespace DateUtils {
       2,
     )}/${date.getFullYear()}`;
   }
+
+  /**
+   * Return the difference between two dates in minutes.
+   * @param date1
+   * @param date2
+   * @returns
+   */
+  export function diffInMinute(date1: Date, date2: Date): number {
+    return Math.round(((date1.getTime() - date2.getTime()) % 86400000) / 60000);
+  }
+
+  /**
+   * Return the difference between two date in readable string.
+   *
+   * Exemple: 2h 12min, 34min..etc
+   * @param date1
+   * @param date2
+   * @returns
+   */
+  export function diffHumanlyReadable(date1: Date, date2: Date): string {
+    const minutes = diffInMinute(date1, date2);
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+
+    if (hours > 0) {
+      return `${hours}h ${remainingMinutes}min`;
+    } else {
+      return `${remainingMinutes}min`;
+    }
+  }
 }
