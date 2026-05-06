@@ -107,4 +107,17 @@ export namespace GeoUtils {
     const brng = Math.atan2(y, x);
     return (toDegrees(brng) + 360) % 360;
   }
+
+  /**
+   * Get the middle point between 2 points
+   * @param pt1
+   * @param pt2
+   * @returns
+   */
+  export function getMiddlePoint(pt1: GeoPoint, pt2: GeoPoint): GeoPoint {
+    return new GeoPoint({
+      lat: (pt1.lat + pt2.lat) / 2,
+      lon: (pt1.lon + pt2.lon) / 2,
+    });
+  }
 }

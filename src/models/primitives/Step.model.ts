@@ -1,15 +1,19 @@
 import { StepDto } from "../../shared/types/dto/Step.dto";
+import { v4 as uuidv4 } from "uuid";
 
 export interface StepProps {
+  id?: string;
   availableAt: Date;
   reach?: boolean;
 }
 
 export class Step {
+  id: string;
   availableAt: Date;
   reach: boolean;
 
-  constructor({ availableAt, reach }: StepProps) {
+  constructor({ id = uuidv4(), availableAt, reach }: StepProps) {
+    this.id = id;
     this.availableAt = availableAt;
     this.reach = !!reach;
   }
@@ -20,6 +24,7 @@ export class Step {
    */
   toDto(): StepDto {
     return {
+      id: this.id,
       type: "unknown",
       availableAt: this.availableAt,
       reach: this.reach,

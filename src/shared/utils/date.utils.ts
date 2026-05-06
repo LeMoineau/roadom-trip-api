@@ -50,12 +50,10 @@ export namespace DateUtils {
    * Return the difference between two date in readable string.
    *
    * Exemple: 2h 12min, 34min..etc
-   * @param date1
-   * @param date2
+   * @param minutes
    * @returns
    */
-  export function diffHumanlyReadable(date1: Date, date2: Date): string {
-    const minutes = diffInMinute(date1, date2);
+  export function diffHumanlyReadable(minutes: number): string {
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
 
