@@ -15,9 +15,10 @@ export interface TripDto {
   osmEndingDetails?: OSMResponse;
   status: TripStatus;
   personAskingAvailable?: number;
-  personAsked?: number;
+  totalPersonAsked?: number;
   endingAt?: DateString;
   route?: TripRoute;
+  allow5sGps?: boolean;
 }
 
 export function isTripDto(trip: any): trip is TripDto {

@@ -16,8 +16,9 @@ export namespace ArrayUtils {
    * @param item targeted item
    * @returns empty array if item not define, else [item]
    */
-  export function itemOrVoid<T>(item?: T | false): T[] {
+  export function itemOrVoid<T>(item?: T | T[] | false): T[] {
     if (!!!item) return [];
+    if (Array.isArray(item)) return item;
     return [item];
   }
 }
