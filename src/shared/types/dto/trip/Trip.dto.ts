@@ -20,6 +20,7 @@ export interface TripDto {
   endingAt?: DateString;
   route?: TripRoute;
   allow5sGps?: boolean;
+  traveledRoute?: GeoPointDto[];
 }
 
 export function isTripDto(trip: any): trip is TripDto {
