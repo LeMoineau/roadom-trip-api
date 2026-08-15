@@ -33,7 +33,7 @@
  *             $ref: '#/components/schemas/StepDto'
  *           description: Liste des étapes du trajet
  *         osmEndingDetails:
- *           $ref: '#/components/schemas/OSMResponse'
+ *           $ref: '#/components/schemas/OSMReverseResponse'
  *           description: Détails OSM de la position d'arrivée (optionnel)
  *         status:
  *           type: string

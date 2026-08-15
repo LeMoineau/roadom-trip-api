@@ -1,4 +1,4 @@
-import { OSMResponse } from "../../osm/OSMResponse";
+import { OSMReverseResponse } from "../../osm/OSMReverseResponse";
 import { DateString } from "../../primitives/Date";
 import { UUID } from "../../primitives/Identifier";
 import { GeoPointDto, isGeoPointDto } from "../geo/GeoPoint.dto";
@@ -13,7 +13,7 @@ export interface TripDto {
   createdAt: DateString;
   startingAt: DateString;
   steps: StepDto[];
-  osmEndingDetails?: OSMResponse;
+  osmEndingDetails?: OSMReverseResponse;
   status: TripStatus;
   personAskingAvailable?: number;
   totalPersonAsked?: number;

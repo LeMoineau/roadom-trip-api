@@ -2,7 +2,7 @@ import moment from "moment";
 import { Step } from "../../models/primitives/Step.model";
 import { Trip } from "../../models/primitives/Trip.model";
 import { Departement } from "../../shared/types/geo/Departement";
-import { OSMResponse } from "../../shared/types/osm/OSMResponse";
+import { OSMReverseResponse } from "../../shared/types/osm/OSMReverseResponse";
 import { WikipediaFormattedPage } from "../../shared/types/wikipedia/Wikipedia";
 
 /**
@@ -10,14 +10,14 @@ import { WikipediaFormattedPage } from "../../shared/types/wikipedia/Wikipedia";
  * - trip
  * - steps
  * - currentTime
- * - endingDetails (OSMResponse)
+ * - endingDetails (OSMReverseResponse)
  * - endingDepartement (Departement)
  */
 export class GlobalStepsVariables {
   trip: Trip;
   steps: Step[];
   currentTime: Date;
-  endingDetails?: OSMResponse;
+  endingDetails?: OSMReverseResponse;
   endingDepartement?: Departement;
   endingWikipediaPage?: WikipediaFormattedPage;
 

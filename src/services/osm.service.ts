@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import config from "../config/config";
-import { OSMResponse } from "../shared/types/osm/OSMResponse";
+import { OSMReverseResponse } from "../shared/types/osm/OSMReverseResponse";
 
 /**
  * Service Open Street Map
@@ -24,7 +24,7 @@ class OSMService {
    * Reverse geocoding generates an address from a coordinate given
    * as latitude and longitude
    * @see https://nominatim.org/release-docs/latest/api/Reverse/
-   * @returns OSMResponse corresponding to lat/lon coords or undefined if error during axios request
+   * @returns OSMReverseResponse corresponding to lat/lon coords or undefined if error during axios request
    */
   async reverse({
     zoom = 17,
@@ -35,7 +35,7 @@ class OSMService {
     lon: number;
     zoom?: number;
     format?: string;
-  }): Promise<OSMResponse | undefined> {
+  }): Promise<OSMReverseResponse | undefined> {
     const params = {
       zoom,
       format,
@@ -50,7 +50,7 @@ class OSMService {
           console.warn("no data found during osm reverse", params, res);
           return undefined;
         }
-        return res.data as OSMResponse;
+        return res.data as OSMReverseResponse;
       })
       .catch((err) => {
         console.error(
@@ -67,7 +67,7 @@ class OSMService {
    * look up a location from a textual description or address.
    * Nominatim supports structured and free-form search queries.
    * @see https://nominatim.org/release-docs/latest/api/Search/
-   * @returns OSMResponse corresponding to query
+   * @returns OSMReverseResponse corresponding to query
    */
   async search({
     format = "json",
@@ -75,7 +75,7 @@ class OSMService {
   }: {
     q: string;
     format?: string;
-  }): Promise<OSMResponse | undefined> {
+  }): Promise<OSMReverseResponse | undefined> {
     const params = {
       format,
       ...props,
@@ -89,7 +89,7 @@ class OSMService {
           console.warn("no data found during osm reverse", params, res);
           return undefined;
         }
-        return res.data as OSMResponse;
+        return res.data as OSMReverseResponse;
       })
       .catch((err) => {
         console.error("error getting osm search data for input: ", params, err);

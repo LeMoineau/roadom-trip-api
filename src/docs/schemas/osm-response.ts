@@ -2,7 +2,7 @@
  * @swagger
  * components:
  *   schemas:
- *     OSMResponse:
+ *     OSMReverseResponse:
  *       type: object
  *       properties:
  *         place_id:

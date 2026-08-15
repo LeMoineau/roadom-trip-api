@@ -4,7 +4,7 @@ import { UUID } from "../../shared/types/primitives/Identifier";
 import { GeoPoint } from "../../shared/models/GeoPoint.model";
 import { v4 as uuidv4 } from "uuid";
 import { Step } from "./Step.model";
-import { OSMResponse } from "../../shared/types/osm/OSMResponse";
+import { OSMReverseResponse } from "../../shared/types/osm/OSMReverseResponse";
 import { TripStatus } from "../../shared/types/dto/trip/TripStatus";
 import { TripRoute } from "../../shared/types/dto/trip/TripRoute";
 
@@ -14,7 +14,7 @@ export class Trip {
   endingPos: GeoPoint;
   createdAt: Date;
   steps: Step[];
-  osmEndingDetails?: OSMResponse;
+  osmEndingDetails?: OSMReverseResponse;
   status: TripStatus;
   personAskingAvailable?: number;
   route?: TripRoute;
@@ -35,7 +35,7 @@ export class Trip {
     id?: UUID;
     createdAt?: Date | string;
     steps?: Step[];
-    osmEndingDetails?: OSMResponse;
+    osmEndingDetails?: OSMReverseResponse;
     status?: TripStatus;
     personAskingAvailable?: number;
     route?: TripRoute;
