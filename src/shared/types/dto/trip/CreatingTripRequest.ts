@@ -2,6 +2,7 @@ import { GeoPointDto, isGeoPointDto } from "../geo/GeoPoint.dto";
 
 export interface CreatingTripRequest {
   startingPos: GeoPointDto;
+  endingPos?: GeoPointDto;
   distanceMax: number;
   distanceMin?: number;
   allowNoInformationsEnding?: boolean;

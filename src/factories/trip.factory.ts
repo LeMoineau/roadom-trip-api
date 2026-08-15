@@ -28,33 +28,44 @@ class TripFactory {
     console.debug(`trip #${tripId}: begin generating...`);
 
     // Generate ending pos
-    let endingPos = this._getRandomPointInAllowedDistance(req);
+    let endingPos;
     let osmEndingDetails;
-    let attempts = 1;
-    while (
-      !!!osmEndingDetails &&
-      attempts < MAX_ENDING_POS_OSM_SEARCH_ATTEMPTS
-    ) {
-      while (GeoUtils.isInSea(endingPos)) {
-        endingPos = this._getRandomPointInAllowedDistance(req);
-      }
+    if (!!req.endingPos) {
+      console.debug(`trip #${tripId}: getting ending pos from request...`);
+      endingPos = new GeoPoint(req.endingPos);
       osmEndingDetails = await osmService.reverse({
         lat: endingPos.lat,
         lon: endingPos.lon,
       });
-      if (!!req.allowNoInformationsEnding) {
-        break;
+    } else {
+      console.debug(`trip #${tripId}: generating ending pos...`);
+      endingPos = this._getRandomPointInAllowedDistance(req);
+      let attempts = 1;
+      while (
+        !!!osmEndingDetails &&
+        attempts < MAX_ENDING_POS_OSM_SEARCH_ATTEMPTS
+      ) {
+        while (GeoUtils.isInSea(endingPos)) {
+          endingPos = this._getRandomPointInAllowedDistance(req);
+        }
+        osmEndingDetails = await osmService.reverse({
+          lat: endingPos.lat,
+          lon: endingPos.lon,
+        });
+        if (!!req.allowNoInformationsEnding) {
+          break;
+        }
+        if (!!!osmEndingDetails?.address.village) {
+          attempts++;
+          osmEndingDetails = undefined;
+          endingPos = this._getRandomPointInAllowedDistance(req);
+        }
       }
-      if (!!!osmEndingDetails?.address.village) {
-        attempts++;
-        osmEndingDetails = undefined;
-        endingPos = this._getRandomPointInAllowedDistance(req);
-      }
+      endingPos.label = DEFAULT_ENDING_POS_LABEL;
+      console.debug(
+        `trip #${tripId}: destination found after ${attempts} attempts`,
+      );
     }
-    endingPos.label = DEFAULT_ENDING_POS_LABEL;
-    console.debug(
-      `trip #${tripId}: destination found after ${attempts} attempts`,
-    );
 
     // Generate trip instance
     const trip = new Trip({
