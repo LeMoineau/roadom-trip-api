@@ -12,6 +12,7 @@ export class Challenge extends Step {
     return {
       ...super.toDto(),
       type: "unknown",
+      nbOfUses: 0,
     };
   }
 }

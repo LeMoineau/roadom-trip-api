@@ -11,6 +11,12 @@ export class GeoPoint {
     this.label = props.label;
   }
 
+  get displayIcon(): string | undefined {
+    if (this.label?.includes("Abandon")) return "🏳️";
+    if (this.label?.includes("Fin")) return "🏁";
+    if (this.label?.includes("Début")) return "🏠";
+  }
+
   toDto(): GeoPointDto {
     return {
       lat: this.lat,

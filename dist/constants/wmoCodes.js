@@ -1,0 +1,26 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.wmoCodes = void 0;
+exports.wmoCodes = {
+    0: { icon: "🌞", libelle: "Ciel dégagé" },
+    1: { icon: "🌤️", libelle: "Partiellement nuageux" },
+    2: { icon: "🌥️", libelle: "Nuageux" },
+    3: { icon: "🌫️", libelle: "Couvert" },
+    45: { icon: "🌫️", libelle: "Brouillard" },
+    48: { icon: "🌫️", libelle: "Dégel brouillard" },
+    51: { icon: "🌧️", libelle: "Pluie légère" },
+    53: { icon: "🌧️", libelle: "Pluie modérée" },
+    55: { icon: "🌧️", libelle: "Pluie forte" },
+    61: { icon: "🌧️", libelle: "Pluie légère (neige fondue)" },
+    63: { icon: "🌧️", libelle: "Pluie modérée (neige fondue)" },
+    65: { icon: "🌧️", libelle: "Pluie forte (neige fondue)" },
+    71: { icon: "🌨️", libelle: "Neige légère" },
+    73: { icon: "🌨️", libelle: "Neige modérée" },
+    75: { icon: "🌨️", libelle: "Neige forte" },
+    80: { icon: "🌧️", libelle: "Averses de pluie légères" },
+    81: { icon: "🌧️", libelle: "Averses de pluie modérées" },
+    82: { icon: "🌧️", libelle: "Averses de pluie violentes" },
+    95: { icon: "⚡", libelle: "Orage (faible ou modéré)" },
+    96: { icon: "⚡", libelle: "Orage avec grêle légère" },
+    99: { icon: "⚡", libelle: "Orage avec grêle forte" },
+};

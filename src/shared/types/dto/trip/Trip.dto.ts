@@ -11,7 +11,7 @@ export interface TripDto {
   startingPos: GeoPointDto;
   endingPos: GeoPointDto;
   createdAt: DateString;
-  startingAt: DateString;
+  startingAt?: DateString;
   steps: StepDto[];
   osmEndingDetails?: OSMReverseResponse;
   status: TripStatus;
