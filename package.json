@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "roadom-trip api",
   "main": "dist/src/index.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node ./dist/src/index.js",
     "start:dev": "dotenv -e .env.development -- node ./dist/src/index.js",
