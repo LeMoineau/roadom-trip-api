@@ -1,22 +1,28 @@
 import { Hint, HintProps } from "../primitives/Hint.model";
 import { RebusHintDto } from "../../shared/types/dto/hints/RebusHint.dto";
-import { toRebus } from "rebus-fr";
 import { WikipediaFormattedPage } from "../../shared/types/wikipedia/Wikipedia";
 
 const DEFAULT_MESSAGE = "déso pas d'information a faire croquer";
 
 export class RebusHint extends Hint {
-  message: string;
+  message: string = DEFAULT_MESSAGE;
 
   constructor({
     wikipediaPage,
     ...props
   }: { wikipediaPage: WikipediaFormattedPage } & HintProps) {
     super(props);
-    this.message = this._generateMessage(wikipediaPage);
+    this._init(wikipediaPage);
   }
 
-  _generateMessage(wikipediaPage: WikipediaFormattedPage): string {
+  async _init(wikipediaPage: WikipediaFormattedPage) {
+    this.message = await this._generateMessage(wikipediaPage);
+  }
+
+  async _generateMessage(
+    wikipediaPage: WikipediaFormattedPage,
+  ): Promise<string> {
+    const { toRebus } = await import("rebus-fr");
     if (wikipediaPage.length <= 0) {
       console.warn(
         `wikipedia page ${JSON.stringify(wikipediaPage)} without sections so no rebus message`,
