@@ -2,7 +2,7 @@
   "name": "roadom-trip-api",
   "version": "1.0.0",
   "description": "roadom-trip api",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "update:shared": "rimraf ./src/shared && copyfiles -u 3 ./../shared/src/**/* ./src/shared/",
