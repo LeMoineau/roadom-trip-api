@@ -2,11 +2,11 @@ import { GeoPointDto } from "../../shared/types/dto/geo/GeoPoint.dto";
 import { TripDto } from "../../shared/types/dto/trip/Trip.dto";
 import { UUID } from "../../shared/types/primitives/Identifier";
 import { GeoPoint } from "../../shared/models/GeoPoint.model";
-import { v4 as uuidv4 } from "uuid";
 import { Step } from "./Step.model";
 import { OSMReverseResponse } from "../../shared/types/osm/OSMReverseResponse";
 import { TripStatus } from "../../shared/types/dto/trip/TripStatus";
 import { TripRoute } from "../../shared/types/dto/trip/TripRoute";
+import { randomUUID } from "crypto";
 
 export class Trip {
   id: UUID;
@@ -22,7 +22,7 @@ export class Trip {
   constructor({
     startingPos,
     endingPos,
-    id = uuidv4(),
+    id = randomUUID(),
     createdAt = new Date(),
     steps = [],
     osmEndingDetails,

@@ -1,5 +1,5 @@
 import { StepDto } from "../../shared/types/dto/Step.dto";
-import { v4 as uuidv4 } from "uuid";
+import { randomUUID } from "crypto";
 
 export interface StepProps {
   id?: string;
@@ -12,7 +12,7 @@ export class Step {
   availableAt: Date;
   reach: boolean;
 
-  constructor({ id = uuidv4(), availableAt, reach }: StepProps) {
+  constructor({ id = randomUUID(), availableAt, reach }: StepProps) {
     this.id = id;
     this.availableAt = availableAt;
     this.reach = !!reach;

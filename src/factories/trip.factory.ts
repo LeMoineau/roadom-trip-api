@@ -4,11 +4,11 @@ import { CreatingTripRequest } from "../shared/types/dto/trip/CreatingTripReques
 import { Trip } from "../models/primitives/Trip.model";
 import stepsFactory from "./steps.factory";
 import osmService from "../services/osm.service";
-import { v4 as uuidv4 } from "uuid";
 import { TripRoute } from "../shared/types/dto/trip/TripRoute";
 import { GeoPointDto } from "../shared/types/dto/geo/GeoPoint.dto";
 import osrmService from "../services/osrm.service";
 import googleMapsService from "../services/google-maps.service";
+import { randomUUID } from "crypto";
 
 const DEFAULT_STARTING_POS_LABEL = "Point de départ";
 const DEFAULT_ENDING_POS_LABEL = "Destination";
@@ -24,7 +24,7 @@ class TripFactory {
    * @returns
    */
   async create(req: CreatingTripRequest): Promise<Trip> {
-    const tripId = uuidv4();
+    const tripId = randomUUID();
     console.debug(`trip #${tripId}: begin generating...`);
 
     // Generate ending pos

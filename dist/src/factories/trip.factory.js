@@ -17,9 +17,9 @@ const GeoPoint_model_1 = require("../shared/models/GeoPoint.model");
 const Trip_model_1 = require("../models/primitives/Trip.model");
 const steps_factory_1 = __importDefault(require("./steps.factory"));
 const osm_service_1 = __importDefault(require("../services/osm.service"));
-const uuid_1 = require("uuid");
 const osrm_service_1 = __importDefault(require("../services/osrm.service"));
 const google_maps_service_1 = __importDefault(require("../services/google-maps.service"));
+const crypto_1 = require("crypto");
 const DEFAULT_STARTING_POS_LABEL = "Point de départ";
 const DEFAULT_ENDING_POS_LABEL = "Destination";
 const MAX_ENDING_POS_OSM_SEARCH_ATTEMPTS = 5;
@@ -34,7 +34,7 @@ class TripFactory {
      */
     create(req) {
         return __awaiter(this, void 0, void 0, function* () {
-            const tripId = (0, uuid_1.v4)();
+            const tripId = (0, crypto_1.randomUUID)();
             console.debug(`trip #${tripId}: begin generating...`);
             // Generate ending pos
             let endingPos;

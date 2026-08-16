@@ -2,19 +2,16 @@
   "name": "roadom-trip-api",
   "version": "1.0.0",
   "description": "roadom-trip api",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
-    "start": "node ./dist/index.js",
-    "start:dev": "dotenv -e .env.development -- node ./dist/index.js",
-    "start:prod": "dotenv -e .env.production -- node ./dist/index.js",
+    "start": "node ./dist/src/index.js",
+    "start:dev": "dotenv -e .env.development -- node ./dist/src/index.js",
+    "start:prod": "dotenv -e .env.production -- node ./dist/src/index.js",
     "update:shared": "rimraf ./src/shared && copyfiles -u 3 ./../shared/src/**/* ./src/shared/",
     "build": "rimraf ./dist && tsc",
     "dev": "dotenv -e .env.development -- tsx watch src/index.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
-  },
-  "prisma": {
-    "schema": "./src/config/prisma/schema.prisma"
   },
   "author": "Pierrot",
   "license": "ISC",
@@ -24,7 +21,6 @@
     "@types/osrm": "^5.25.6",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
-    "@types/uuid": "^11.0.0",
     "copyfiles": "^2.4.1",
     "nodemon": "^3.0.1",
     "prettier": "^3.1.0",
@@ -54,7 +50,6 @@
     "prisma": "^5.11.0",
     "rebus-fr": "^1.3.6",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1",
-    "uuid": "^13.0.0"
+    "swagger-ui-express": "^5.0.1"
   }
 }

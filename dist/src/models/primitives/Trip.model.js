@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Trip = void 0;
 const GeoPoint_model_1 = require("../../shared/models/GeoPoint.model");
-const uuid_1 = require("uuid");
+const crypto_1 = require("crypto");
 class Trip {
-    constructor({ startingPos, endingPos, id = (0, uuid_1.v4)(), createdAt = new Date(), steps = [], osmEndingDetails, status = "new", personAskingAvailable, route, }) {
+    constructor({ startingPos, endingPos, id = (0, crypto_1.randomUUID)(), createdAt = new Date(), steps = [], osmEndingDetails, status = "new", personAskingAvailable, route, }) {
         this.id = id;
         this.startingPos = new GeoPoint_model_1.GeoPoint(startingPos);
         this.endingPos = new GeoPoint_model_1.GeoPoint(endingPos);

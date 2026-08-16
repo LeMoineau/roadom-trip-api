@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Step = void 0;
-const uuid_1 = require("uuid");
+const crypto_1 = require("crypto");
 class Step {
-    constructor({ id = (0, uuid_1.v4)(), availableAt, reach }) {
+    constructor({ id = (0, crypto_1.randomUUID)(), availableAt, reach }) {
         this.id = id;
         this.availableAt = availableAt;
         this.reach = !!reach;
