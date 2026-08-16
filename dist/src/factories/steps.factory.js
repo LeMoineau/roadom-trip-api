@@ -180,11 +180,14 @@ class StepsFactory {
                     state: vars.endingDetails.address.state,
                     availableAt: vars.currentTime,
                 }));
-            vars.tryPushStep("rebus hint", !!vars.endingWikipediaPage &&
-                new RebusHint_model_1.RebusHint({
+            if (!!vars.endingWikipediaPage) {
+                const rebusHint = new RebusHint_model_1.RebusHint({
                     wikipediaPage: vars.endingWikipediaPage,
                     availableAt: vars.currentTime,
-                }));
+                });
+                yield rebusHint.generateRebus();
+                vars.tryPushStep("rebus hint", rebusHint);
+            }
             vars.pushStep(new Toyota5Challenge_model_1.Toyota5Challenge({
                 availableAt: vars.currentTime,
             }));

@@ -61,11 +61,11 @@ class RebusHint extends Hint_model_1.Hint {
         var { wikipediaPage } = _a, props = __rest(_a, ["wikipediaPage"]);
         super(props);
         this.message = DEFAULT_MESSAGE;
-        this._init(wikipediaPage);
+        this.wikipediaPage = wikipediaPage;
     }
-    _init(wikipediaPage) {
+    generateRebus() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.message = yield this._generateMessage(wikipediaPage);
+            this.message = yield this._generateMessage(this.wikipediaPage);
         });
     }
     _generateMessage(wikipediaPage) {

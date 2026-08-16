@@ -198,14 +198,14 @@ class StepsFactory {
           availableAt: vars.currentTime,
         }),
     );
-    vars.tryPushStep(
-      "rebus hint",
-      !!vars.endingWikipediaPage &&
-        new RebusHint({
-          wikipediaPage: vars.endingWikipediaPage,
-          availableAt: vars.currentTime,
-        }),
-    );
+    if (!!vars.endingWikipediaPage) {
+      const rebusHint = new RebusHint({
+        wikipediaPage: vars.endingWikipediaPage,
+        availableAt: vars.currentTime,
+      });
+      await rebusHint.generateRebus();
+      vars.tryPushStep("rebus hint", rebusHint);
+    }
     vars.pushStep(
       new Toyota5Challenge({
         availableAt: vars.currentTime,

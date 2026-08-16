@@ -6,17 +6,18 @@ const DEFAULT_MESSAGE = "déso pas d'information a faire croquer";
 
 export class RebusHint extends Hint {
   message: string = DEFAULT_MESSAGE;
+  wikipediaPage: WikipediaFormattedPage;
 
   constructor({
     wikipediaPage,
     ...props
   }: { wikipediaPage: WikipediaFormattedPage } & HintProps) {
     super(props);
-    this._init(wikipediaPage);
+    this.wikipediaPage = wikipediaPage;
   }
 
-  async _init(wikipediaPage: WikipediaFormattedPage) {
-    this.message = await this._generateMessage(wikipediaPage);
+  async generateRebus() {
+    this.message = await this._generateMessage(this.wikipediaPage);
   }
 
   async _generateMessage(
