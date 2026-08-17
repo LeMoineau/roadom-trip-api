@@ -1,5 +1,12 @@
 # Roadom-trip API
 
+## Deploy
+
+```shell
+npm run build
+git push #will automatically deploy on vercel
+```
+
 ## Routes
 
 ### Create a trip
