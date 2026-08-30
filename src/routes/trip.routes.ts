@@ -57,7 +57,6 @@ tripRouter.post("/", async (req: Request, res: Response) => {
       res.status(400).send("Miss paramters: Request must contain a body");
       return;
     }
-
     if (!isCreatingTripRequest(req.body)) {
       res
         .status(400)
@@ -66,7 +65,8 @@ tripRouter.post("/", async (req: Request, res: Response) => {
     }
     const tripRequest: CreatingTripRequest = req.body;
     try {
-      res.status(201).send((await tripFactory.create(tripRequest)).toDto());
+      const newTrip = await tripFactory.create(tripRequest);
+      res.status(201).send(newTrip.toDto());
     } catch (err) {
       console.error(err);
       res.status(500).send(`Error creating trip: ${err}`);

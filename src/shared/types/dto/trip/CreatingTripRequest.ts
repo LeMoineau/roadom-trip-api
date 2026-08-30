@@ -3,7 +3,7 @@ import { GeoPointDto, isGeoPointDto } from "../geo/GeoPoint.dto";
 export interface CreatingTripRequest {
   startingPos: GeoPointDto;
   endingPos?: GeoPointDto;
-  distanceMax: number;
+  distanceMax?: number;
   distanceMin?: number;
   allowNoInformationsEnding?: boolean;
 }
@@ -12,8 +12,8 @@ export function isCreatingTripRequest(req: any): req is CreatingTripRequest {
   return (
     !!req &&
     isGeoPointDto(req.startingPos) &&
-    req.distanceMax &&
-    typeof req.distanceMax === "number" &&
+    (!req.endingPos || isGeoPointDto(req.endingPos)) &&
+    (!req.distanceMax || typeof req.distanceMax === "number") &&
     (!req.distanceMin || typeof req.distanceMin === "number")
   );
 }

@@ -8,7 +8,7 @@ import swaggerConfig from "./config/swagger-config";
 
 const app: Express = express();
 const jsonParser = bodyParser.json();
-const port = process.env.PORT;
+const port = process.env.PORT ?? 3001;
 
 app.use(jsonParser);
 app.use(cors());

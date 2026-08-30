@@ -114,6 +114,9 @@ class TripFactory {
         });
     }
     _getRandomPointInAllowedDistance(req) {
+        if (!!!req.distanceMax) {
+            throw new Error("distance max not defined");
+        }
         const startingPos = new GeoPoint_model_1.GeoPoint(req.startingPos);
         const bounds = geo_utils_1.GeoUtils.getBoundsOfDistance(startingPos, req.distanceMax);
         let endingPos = geo_utils_1.GeoUtils.getRandomPointBetween(bounds[0], bounds[1]);

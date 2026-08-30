@@ -74,7 +74,8 @@ tripRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* (
         }
         const tripRequest = req.body;
         try {
-            res.status(201).send((yield trip_factory_1.default.create(tripRequest)).toDto());
+            const newTrip = yield trip_factory_1.default.create(tripRequest);
+            res.status(201).send(newTrip.toDto());
         }
         catch (err) {
             console.error(err);

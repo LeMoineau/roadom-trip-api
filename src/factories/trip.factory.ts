@@ -112,6 +112,10 @@ class TripFactory {
   }
 
   _getRandomPointInAllowedDistance(req: CreatingTripRequest): GeoPoint {
+    if (!!!req.distanceMax) {
+      throw new Error("distance max not defined");
+    }
+
     const startingPos = new GeoPoint(req.startingPos);
     const bounds = GeoUtils.getBoundsOfDistance(startingPos, req.distanceMax);
     let endingPos = GeoUtils.getRandomPointBetween(bounds[0], bounds[1]);
